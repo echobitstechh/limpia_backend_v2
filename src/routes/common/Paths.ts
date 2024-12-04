@@ -7,5 +7,9 @@ export default {
     Add: '/add',
     Update: '/update',
     Delete: '/delete/:id',
+    Cleaners: {
+        Base: '/cleaners',
+        Register: '/register',
+    },
   },
 } as const;

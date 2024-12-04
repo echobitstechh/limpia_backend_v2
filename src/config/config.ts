@@ -6,6 +6,7 @@ import { Dialect, Sequelize } from 'sequelize';
 import {initUser, User} from "@src/models/User";
 import {Address, initAddress} from "@src/models/Address";
 import {initProperty, Property} from "@src/models/Property";
+import {Booking, initBooking} from "@src/models/Booking";
 
 
 const database = process.env.DB_NAME || '';
@@ -56,6 +57,20 @@ function defineAssociations() {
   Property.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
   User.hasMany(Property, { foreignKey: 'ownerId', as: 'properties' });
 
+
+
+  // Booking -> Cleaner
+  console.log('Associating Booking -> Cleaner...');
+  Booking.belongsTo(Cleaner, { foreignKey: 'cleanerId', as: 'cleaner' });
+  Cleaner.hasMany(Booking, { foreignKey: 'cleanerId', as: 'bookings' });
+
+
+  // Booking -> Property
+  console.log('Associating Booking -> Property...');
+  Booking.belongsTo(Property, { foreignKey: 'propertyId', as: 'property' });
+  Property.hasMany(Booking, { foreignKey: 'propertyId', as: 'bookings' });
+
+
   console.log('All associations defined successfully');
 }
 
@@ -90,6 +105,7 @@ async function initialize() {
   initUser(sequelize);
   initCleaner(sequelize);
   initProperty(sequelize);
+  initBooking(sequelize);
 
   defineAssociations();
   await sequelize.sync({ alter: true });

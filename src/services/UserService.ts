@@ -2,12 +2,13 @@ import { RouteError } from '@src/common/route-errors';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 
 import UserRepo from '@src/repos/UserRepo';
-import { IUser } from '@src/models/User';
+import {IUser, User} from '@src/models/User';
 
 
 // **** Variables **** //
 
 export const USER_NOT_FOUND_ERR = 'User not found';
+export const ALREADY_EXISTS = 'User already exists';
 
 
 // **** Functions **** //
@@ -54,6 +55,7 @@ async function _delete(id: number): Promise<void> {
   }
   // Delete user
   return UserRepo.delete(id);
+
 }
 
 

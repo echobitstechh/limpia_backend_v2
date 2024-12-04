@@ -20,6 +20,9 @@ userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
 
+//Cleaner Route
+userRouter.post(Paths.Users.Cleaners.Register, UserRoutes.registerCleaner);
+
 // Add UserRouter
 apiRouter.use(Paths.Users.Base, userRouter);
 

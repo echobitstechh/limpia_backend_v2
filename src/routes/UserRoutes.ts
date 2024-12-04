@@ -53,6 +53,16 @@ async function delete_(req: IReq, res: IRes) {
 }
 
 
+/**
+ * Register Cleaner.
+ */
+async function registerCleaner(req: IReq, res: IRes) {
+    const { user } = Validators.add(req.body);
+    // await UserService.registerCleaner(user);
+    res.status(HttpStatusCodes.CREATED).end();
+}
+
+
 // **** Export default **** //
 
 export default {
@@ -60,4 +70,5 @@ export default {
   add,
   update,
   delete: delete_,
+  registerCleaner,
 } as const;
