@@ -44,3 +44,28 @@ export enum PaymentStatusConstant {
     IN_PROGRESS = "IN_PROGRESS",
     DISPUTED = "DISPUTED",
 }
+
+export enum GeneralAreaTasks {
+    DUSTING = "Dusting",
+    VACUUMING_SWEEPING = "Vacuuming & Sweeping",
+    MOPPING = "Mopping",
+    DOORS_HANDLES = "Doors & Handles",
+    MIRRORS_GLASS_SURFACES = "Mirrors & Glass Surfaces",
+    WINDOWS = "Windows",
+}
+
+export enum KitchenTasks {
+    COUNTERS_SURFACES = "Counters & Surfaces",
+    APPLIANCES = "Appliances",
+    CABINETS_DRAWERS = "Cabinets & Drawers",
+    FLOORING = "Flooring",
+}
+
+export enum BathroomTasks {
+    SINK_COUNTERS = "Sink & Counters",
+    TOILET = "Toilet",
+    SHOWER_BATHTUB = "Shower/Bathtub",
+    MIRRORS_GLASS_SURFACES = "Mirrors & Glass Surfaces",
+    CABINETS_DRAWERS = "Cabinets & Drawers",
+    FLOORING = "Flooring",
+}

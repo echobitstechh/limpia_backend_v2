@@ -11,10 +11,9 @@ import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 
 interface BookingAttributes {
     id: string;
-    type: string;
     images?: string[];
     status: GenericStatusConstant;
-    cleanerId?: string; //TODO: UI Supports multiple cleaners. This should be an array ??`
+    cleanerId?: string[]; //TODO: UI Supports multiple cleaners. This should be an array ??`
     numberOfRooms?: string;
     numberOfBathrooms?: string;
     cleanerPreferences?: string;
@@ -43,10 +42,9 @@ interface BookingCreationAttributes extends Optional<BookingAttributes, 'id'> {}
 
 class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public id!: string;
-    public type!: string;
     public images?: string[];
     public status!: GenericStatusConstant;
-    public cleanerId?: string; // Updated to support multiple cleaners
+    public cleanerId?: string[];
     public propertyId?: string;
     public numberOfRooms?: string;
     public numberOfBathrooms?: string;
@@ -70,10 +68,6 @@ const initBooking = (sequelize: Sequelize) => {
                 defaultValue: DataTypes.UUIDV4,
                 allowNull: false,
                 primaryKey: true,
-            },
-            type: {
-                type: DataTypes.STRING,
-                allowNull: false,
             },
             images: {
                 type: DataTypes.JSONB,
