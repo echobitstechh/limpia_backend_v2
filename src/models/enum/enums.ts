@@ -11,6 +11,11 @@ export enum GenericStatusConstant {
     Deleted = "Deleted",
 }
 
+export enum PropertyTypeConstant {
+    Apartment = "Apartment",
+    House = "House",
+}
+
 export enum StaffingTypeConstant {
     INDIVIDUAL_CLEANER = "INDIVIDUAL_CLEANER",
     CLEANING_CREW = "CLEANING_CREW",

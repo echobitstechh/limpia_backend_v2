@@ -2,7 +2,7 @@ import {
     BookingStatusConstant,
     CleaningTypeConstant,
     GenericStatusConstant,
-    PaymentStatusConstant,
+    PaymentStatusConstant, PropertyTypeConstant,
     StaffingTypeConstant
 } from "@src/models/enum/enums";
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
@@ -13,6 +13,7 @@ interface BookingAttributes {
     id: string;
     images?: string[];
     status: GenericStatusConstant;
+    propertyType: PropertyTypeConstant;
     cleanerId?: string[]; //TODO: UI Supports multiple cleaners. This should be an array ??`
     numberOfRooms?: string;
     numberOfBathrooms?: string;
@@ -44,6 +45,7 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public id!: string;
     public images?: string[];
     public status!: GenericStatusConstant;
+    public propertyType!: PropertyTypeConstant;
     public cleanerId?: string[];
     public propertyId?: string;
     public numberOfRooms?: string;
@@ -77,6 +79,11 @@ const initBooking = (sequelize: Sequelize) => {
                 type: DataTypes.ENUM(...Object.values(GenericStatusConstant)),
                 allowNull: false,
                 defaultValue: GenericStatusConstant.Active,
+            },
+            propertyType: {
+                type: DataTypes.ENUM(...Object.values(PropertyTypeConstant)),
+                allowNull: false,
+                defaultValue: PropertyTypeConstant.House,
             },
             cleanerId: {
                 type: DataTypes.UUID,

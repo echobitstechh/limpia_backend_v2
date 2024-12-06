@@ -89,6 +89,7 @@ export const createBooking = async (req: Request, res: Response) => {
             propertyId: finalPropertyId,
             cleaningType: cleaningType as CleaningTypeConstant,
             cleaningTime,
+            propertyType: type,
             numberOfRooms,
             numberOfBathrooms,
             checklistDetails,
