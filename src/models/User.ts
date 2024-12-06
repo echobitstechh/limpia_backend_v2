@@ -23,7 +23,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
     public password!: string;
     public role!: UserRole;
     public status!: GenericStatusConstant;
-    public addressId!: string; // Foreign key to Address table
+    public addressId!: string;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -69,7 +69,7 @@ const initUser = (sequelize: Sequelize) => {
             },
             addressId: {
                 type: DataTypes.UUID,
-                allowNull: false, // Users must have an address
+                allowNull: false,
                 references: {
                     model: 'Addresses',
                     key: 'id',

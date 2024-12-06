@@ -64,6 +64,24 @@ function defineAssociations() {
   Booking.belongsTo(Cleaner, { foreignKey: 'cleanerId', as: 'cleaner' });
   Cleaner.hasMany(Booking, { foreignKey: 'cleanerId', as: 'bookings' });
 
+  Cleaner.belongsToMany(Booking, {
+    through: "CleanerIgnoredBookings",
+    as: "ignoredBookings",
+    foreignKey: "cleanerId",
+  });
+
+  Booking.belongsToMany(Cleaner, {
+    through: "CleanerIgnoredBookings",
+    as: "ignoredByCleaners",
+    foreignKey: "bookingId",
+  });
+
+
+  Cleaner.belongsToMany(Booking, { through: "CleanerBookings", foreignKey: "cleanerId" });
+
+  Booking.belongsToMany(Cleaner, { through: "CleanerBookings", foreignKey: "bookingId" });
+
+
 
   // Booking -> Property
   console.log('Associating Booking -> Property...');

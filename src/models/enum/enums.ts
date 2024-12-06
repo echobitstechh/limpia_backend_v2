@@ -27,6 +27,27 @@ export enum CleaningTypeConstant {
     DEEP_CLEANING = "DEEP_CLEANING",
 }
 
+export enum PeriodConstant {
+    MORNING = "Morning",
+    AFTERNOON = "Afternoon",
+    EVENING = "Evening",
+}
+
+export enum DayTypeConstant {
+    WEEKDAYS = "Weekdays",
+    WEEKENDS = "Weekends",
+}
+
+export enum BookingAction {
+    ACCEPT = "ACCEPT",
+    IGNORE = "IGNORE",
+    RESCHEDULE = "RESCHEDULE",
+    CANCEL = "CANCEL",
+    COMPLETE = "COMPLETE",
+}
+
+
+
 export enum BookingStatusConstant {
     PENDING = "PENDING",
     CONFIRMED = "CONFIRMED",
