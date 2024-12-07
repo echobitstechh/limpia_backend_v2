@@ -1,28 +1,31 @@
-import {Cleaner, initCleaner} from "@src/models/Cleaner";
+import { Cleaner, initCleaner } from "@src/models/Cleaner";
 
-require('dotenv').config();
-import bcrypt from 'bcrypt';
-import { Dialect, Sequelize } from 'sequelize';
-import {initUser, User} from "@src/models/User";
-import {Address, initAddress} from "@src/models/Address";
-import {initProperty, Property} from "@src/models/Property";
-import {Booking, initBooking} from "@src/models/Booking";
+require("dotenv").config();
+import bcrypt from "bcrypt";
+import { Dialect, Sequelize } from "sequelize";
+import { initUser, User } from "@src/models/User";
+import { Address, initAddress } from "@src/models/Address";
+import { initProperty, Property } from "@src/models/Property";
+import { Booking, initBooking } from "@src/models/Booking";
+import { initNotification } from "@src/models/Notification/notification";
+import { initLoggedInUser } from "@src/models/LoggedInUser/loggedInUser";
+import { initConversation } from "@src/models/Message/conversation";
+import { initMessage } from "@src/models/Message/message";
 
-
-const database = process.env.DB_NAME || '';
-const username = process.env.DB_USER || '';
-const password = process.env.DB_PASSWORD || '';
-const host = process.env.DB_HOST || '';
-const dialect = process.env.DB_DIALECT || 'postgres';
+const database = process.env.DB_NAME || "";
+const username = process.env.DB_USER || "";
+const password = process.env.DB_PASSWORD || "";
+const host = process.env.DB_HOST || "";
+const dialect = process.env.DB_DIALECT || "postgres";
 
 export const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: dialect as Dialect,
   pool: {
-    max: 5,          // Maximum number of connections in the pool
-    min: 0,          // Minimum number of connections
-    acquire: 30000,  // Maximum time (in ms) Sequelize will try to get a connection before throwing an error
-    idle: 10000      // Time (in ms) a connection can be idle before being released
+    max: 5, // Maximum number of connections in the pool
+    min: 0, // Minimum number of connections
+    acquire: 30000, // Maximum time (in ms) Sequelize will try to get a connection before throwing an error
+    idle: 10000, // Time (in ms) a connection can be idle before being released
   },
   // dialectOptions: {
   //   ssl: {
@@ -30,39 +33,35 @@ export const sequelize = new Sequelize(database, username, password, {
   //   }
   // },
   logging: false,
-
 });
 
-
 function defineAssociations() {
-  console.log('Associating models...');
+  console.log("Associating models...");
 
   // Cleaner -> User
-  console.log('Associating Cleaner -> User...');
-  Cleaner.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-  User.hasOne(Cleaner, { foreignKey: 'userId', as: 'cleaner' });
+  console.log("Associating Cleaner -> User...");
+  Cleaner.belongsTo(User, { foreignKey: "userId", as: "user" });
+  User.hasOne(Cleaner, { foreignKey: "userId", as: "cleaner" });
 
   // Address -> User
-  console.log('Associating Address -> User...');
-  Address.hasMany(User, { foreignKey: 'addressId', as: 'users' });
-  User.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
+  console.log("Associating Address -> User...");
+  Address.hasMany(User, { foreignKey: "addressId", as: "users" });
+  User.belongsTo(Address, { foreignKey: "addressId", as: "address" });
 
   // Property -> Address
-  console.log('Associating Property -> Address...');
-  Property.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
-  Address.hasMany(Property, { foreignKey: 'addressId', as: 'properties' });
+  console.log("Associating Property -> Address...");
+  Property.belongsTo(Address, { foreignKey: "addressId", as: "address" });
+  Address.hasMany(Property, { foreignKey: "addressId", as: "properties" });
 
   // Property -> User
-  console.log('Associating Property -> User...');
-  Property.belongsTo(User, { foreignKey: 'ownerId', as: 'owner' });
-  User.hasMany(Property, { foreignKey: 'ownerId', as: 'properties' });
-
-
+  console.log("Associating Property -> User...");
+  Property.belongsTo(User, { foreignKey: "ownerId", as: "owner" });
+  User.hasMany(Property, { foreignKey: "ownerId", as: "properties" });
 
   // Booking -> Cleaner
-  console.log('Associating Booking -> Cleaner...');
-  Booking.belongsTo(Cleaner, { foreignKey: 'cleanerId', as: 'cleaner' });
-  Cleaner.hasMany(Booking, { foreignKey: 'cleanerId', as: 'bookings' });
+  console.log("Associating Booking -> Cleaner...");
+  Booking.belongsTo(Cleaner, { foreignKey: "cleanerId", as: "cleaner" });
+  Cleaner.hasMany(Booking, { foreignKey: "cleanerId", as: "bookings" });
 
   Cleaner.belongsToMany(Booking, {
     through: "CleanerIgnoredBookings",
@@ -76,23 +75,23 @@ function defineAssociations() {
     foreignKey: "bookingId",
   });
 
+  Cleaner.belongsToMany(Booking, {
+    through: "CleanerBookings",
+    foreignKey: "cleanerId",
+  });
 
-  Cleaner.belongsToMany(Booking, { through: "CleanerBookings", foreignKey: "cleanerId" });
-
-  Booking.belongsToMany(Cleaner, { through: "CleanerBookings", foreignKey: "bookingId" });
-
-
+  Booking.belongsToMany(Cleaner, {
+    through: "CleanerBookings",
+    foreignKey: "bookingId",
+  });
 
   // Booking -> Property
-  console.log('Associating Booking -> Property...');
-  Booking.belongsTo(Property, { foreignKey: 'propertyId', as: 'property' });
-  Property.hasMany(Booking, { foreignKey: 'propertyId', as: 'bookings' });
+  console.log("Associating Booking -> Property...");
+  Booking.belongsTo(Property, { foreignKey: "propertyId", as: "property" });
+  Property.hasMany(Booking, { foreignKey: "propertyId", as: "bookings" });
 
-
-  console.log('All associations defined successfully');
+  console.log("All associations defined successfully");
 }
-
-
 
 // Create Master details in the Db
 // const createSuperAdmin = async () => {
@@ -125,12 +124,15 @@ async function initialize() {
   initProperty(sequelize);
   initBooking(sequelize);
 
+  initNotification(sequelize); // Initialize the Notification model
+  initLoggedInUser(sequelize); // Initialize the LoggedInUser model
+  initConversation(sequelize); // Initialize the Conversation model
+  initMessage(sequelize); // Initialize the Message model
+
   defineAssociations();
   await sequelize.sync({ alter: true });
 
   // await createSuperAdmin();
-
 }
-
 
 initialize().catch(console.error);

@@ -15,6 +15,9 @@ import * as fs from "fs";
 
 import userRoute from "./routes/user";
 import bookingRoute from "./routes/booking";
+import loginRoute from "./routes/LoggedInUser/loggedInUser";
+import notificationRoute from "./routes/Notification/notification";
+import messageRoute from "./routes/Message/message";
 
 import { swaggerConfig } from "@src/config/swagger_config";
 
@@ -32,72 +35,75 @@ app.use(logger("dev"));
 
 // Session setup
 app.use(
-    session({
-        secret: process.env.COOKIE_KEY as string,
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: process.env.COOKIE_KEY as string,
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 
-
 sequelize
-    .sync()
-    .then(() => {
-        console.log("Database synced successfully");
-    })
-    .catch((err: any) => {
-        console.error(err);
-    });
-
+  .sync()
+  .then(() => {
+    console.log("Database synced successfully");
+  })
+  .catch((err: any) => {
+    console.error(err);
+  });
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-
 app.use(express.static(path.join(__dirname, "../public")));
-
 
 const swaggerFilePath = path.resolve(__dirname, "./docs/swagger_output.json");
 if (fs.existsSync(swaggerFilePath)) {
-    const swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, "utf8"));
-    app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    console.log("Swagger UI available at /api/v1/api-docs");
+  const swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, "utf8"));
+  app.use(
+    "/api/v1/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+  );
+  console.log("Swagger UI available at /api/v1/api-docs");
 } else {
-    console.error("Swagger output file not found. Ensure documentation is generated.");
+  console.error(
+    "Swagger output file not found. Ensure documentation is generated."
+  );
 }
-
 
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/booking", bookingRoute);
 
+// Notification / Messaging routes
+app.use("/api/v1/login", loginRoute);
+app.use("/api/v1/message", messageRoute);
+app.use("/api/v1/notification", notificationRoute);
 
 app.get("/", (req: Request, res: Response, next) => {
-    res.send("Limpia Backend V2 Home!");
-    next()
+  res.send("Limpia Backend V2 Home!");
+  next();
 });
 
 // Catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
-    next(createError(404));
+  next(createError(404));
 });
 
 // Error handler
 app.use((err: HttpError, req: Request, res: Response, next) => {
-    if (!res.headersSent) {
-        res.status(err.status || 500).json({
-            status: err.status || 500,
-            message: err.message,
-        });
-    }
-    next()
+  if (!res.headersSent) {
+    res.status(err.status || 500).json({
+      status: err.status || 500,
+      message: err.message,
+    });
+  }
+  next();
 });
-
 
 expressOasGenerator.handleRequests();
 
 const port = process.env.PORT || 3000;
 
-
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

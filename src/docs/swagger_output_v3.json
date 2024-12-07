@@ -160,6 +160,26 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Incorrect  password"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
@@ -1278,6 +1298,466 @@
         "tags": [
           "booking"
         ]
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "summary": "/api/v1/login",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logged in user created successfully"
+                    },
+                    "newLoggedInUser": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "6f81f722-607c-4fe4-a167-7c8689165e9f"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "8b79a7f2-27d4-4ded-82ab-6faf7065d90b"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "Test Cleaner"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "Cleaner"
+                        },
+                        "fcmToken": {
+                          "type": "string",
+                          "example": "ctrc3dYj5zujlDD5ESpR5F:APA91bGFORlRjD6vJYhuIFN-O_drOZjDg3MCtO1-7I64aqHUfbhKME8SeaMqrbSK59sFvBGgwSa7FhwZbWqpjLqfsScsbHI40PRji-Wf6Q75c1Mbo5D7xlQ"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-07T20:24:53.441Z"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-07T20:24:53.441Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User already logged in, on another device"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      },
+      "get": {
+        "summary": "/api/v1/login",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logged in users retrieved successfully"
+                    },
+                    "loggedInUsers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string"
+                          },
+                          "fcmToken": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "id": "6f81f722-607c-4fe4-a167-7c8689165e9f",
+                          "userId": "8b79a7f2-27d4-4ded-82ab-6faf7065d90b",
+                          "username": "Test Cleaner",
+                          "fcmToken": "ctrc3dYj5zujlDD5ESpR5F:APA91bGFORlRjD6vJYhuIFN-O_drOZjDg3MCtO1-7I64aqHUfbhKME8SeaMqrbSK59sFvBGgwSa7FhwZbWqpjLqfsScsbHI40PRji-Wf6Q75c1Mbo5D7xlQ",
+                          "role": "Cleaner",
+                          "createdAt": "2024-12-07T20:24:53.441Z",
+                          "updatedAt": "2024-12-07T20:24:53.441Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No logged in users found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/login/logout": {
+      "post": {
+        "summary": "/api/v1/login/logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logged out successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not logged in"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message/{id}": {
+      "get": {
+        "summary": "/api/v1/message/{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error retriving user's message: try again"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Something went wrong: Cannot destructure property 'id' of 'req.user' as it is undefined."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message": {
+      "post": {
+        "summary": "/api/v1/message",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Message sent successfully!"
+                    },
+                    "newMessage": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "e5b69868-755a-4712-91cc-dbf0fa3b58a4"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "sent"
+                        },
+                        "conversationId": {
+                          "type": "string",
+                          "example": "3af13fc1-c639-4848-8161-7ec0da24311f"
+                        },
+                        "senderId": {
+                          "type": "string",
+                          "example": "45e2947b-9a18-457e-830d-ec7db42a9f37"
+                        },
+                        "recipientId": {
+                          "type": "string",
+                          "example": "07654b67-03d8-4c40-99bb-21ebe4a097a0"
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "hello"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-07T21:15:34.015Z"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-07T21:15:34.015Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message/markDelivered": {
+      "post": {
+        "summary": "/api/v1/message/markDelivered",
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/message/markRead": {
+      "post": {
+        "summary": "/api/v1/message/markRead",
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No message found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/notification": {
+      "get": {
+        "summary": "/api/v1/notification",
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/notification/action": {
+      "post": {
+        "summary": "/api/v1/notification/action",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Notification sent successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Action is required"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
       }
     },
     "/": {
