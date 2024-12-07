@@ -6,7 +6,6 @@ import {
     StaffingTypeConstant
 } from "@src/models/enum/enums";
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
-import {User} from "@src/models/User";
 import {Property} from "@src/models/Property";
 
 
@@ -16,7 +15,7 @@ interface BookingAttributes {
     images?: string[];
     status: GenericStatusConstant;
     propertyType: PropertyTypeConstant;
-    cleanerId?: string[]; //TODO: UI Supports multiple cleaners. This should be an array ??`
+    cleanerId?: string; //TODO: UI Supports multiple cleaners. This should be an array ??`
     numberOfRooms?: string;
     cancelReason?: string;
     rescheduleReason?: string;
@@ -34,7 +33,7 @@ interface BookingAttributes {
 }
 
 interface BookingCreationAttributes
-    extends Omit<BookingAttributes, 'id' | 'createdAt' | 'updatedAt'> {
+    extends Omit<BookingAttributes, 'id' | 'createdAt' | 'updatedAt' | 'cleanerId'> {
     // 'id' is excluded because it's typically auto-generated
     // 'createdAt' and 'updatedAt' are excluded because they're managed by Sequelize or the database
 }
@@ -50,7 +49,7 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public images?: string[];
     public status!: GenericStatusConstant;
     public propertyType!: PropertyTypeConstant;
-    public cleanerId?: string[];
+    public cleanerId?: string;
     public propertyId?: string;
     public cancelReason?: string;
     public rescheduleReason?: string;

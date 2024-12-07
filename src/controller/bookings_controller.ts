@@ -155,6 +155,7 @@ export const getNearByBookings = async (req: Request, res: Response) => {
     try {
         const { id: userId, role } = req.user as { id: string; role: string };
 
+        console.log("Role is", role);
         if (role !== UserRole.Cleaner) {
             return res.status(403).json({
                 status: 403,
@@ -205,6 +206,7 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 'cleaningType',
                 'numberOfRooms',
                 'numberOfBathrooms',
+                'bookingStatus',
                 'checklistDetails',
                 'cleaningTime',
             ],
@@ -212,7 +214,7 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 {
                     model: Property,
                     as: 'property',
-                    attributes: ['id'],
+                    attributes: ['id', 'type', 'nameOfProperty', 'numberOfUnits', 'numberOfRooms', 'numberOfBathrooms', 'addressId', 'images', 'status', 'ownerId'],
                     include: [
                         {
                             model: Address,
@@ -223,6 +225,8 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 },
             ],
         });
+
+        const CleanerIgnoredBookings = cleaner.ignoredBookings;
 
         if (!bookings.length) {
             return res.status(404).json({
@@ -237,6 +241,12 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 console.log(`Booking ${booking.id} skipped: No property address.`);
                 return false;
             }
+
+            if(cleaner.ignoredBookings?.includes(booking)){
+                console.log(`Booking ${booking.id} skipped: Cleaner has ignored this booking.`);
+                return false;
+            }
+
 
             let matchesLocation = false;
             let matchesAvailability = false;
@@ -268,7 +278,8 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 matchesPeriod = availabilityTime.some((period) => {
                     const bookingHour = new Date(booking.cleaningTime ?? Date.now()).getHours();
 
-                    if (period === PeriodConstant.MORNING && bookingHour >= 6 && bookingHour < 12) return true;
+                    console.log('Booking hour:', bookingHour);
+                    if (period === PeriodConstant.MORNING && bookingHour < 12) return true;
                     if (period === PeriodConstant.AFTERNOON && bookingHour >= 12 && bookingHour < 18) return true;
                     return period === PeriodConstant.EVENING && bookingHour >= 18;
                 });
