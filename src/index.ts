@@ -15,6 +15,7 @@ import * as fs from "fs";
 
 import userRoute from "./routes/user";
 import bookingRoute from "./routes/booking";
+import enumRoute from "./routes/enum";
 
 import { swaggerConfig } from "@src/config/swagger_config";
 
@@ -69,6 +70,7 @@ if (fs.existsSync(swaggerFilePath)) {
 
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use("/api/v1/enum", enumRoute);
 
 
 app.get("/", (req: Request, res: Response, next) => {

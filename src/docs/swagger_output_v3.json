@@ -1280,6 +1280,38 @@
         ]
       }
     },
+    "/api/v1/enum/enums": {
+      "get": {
+        "summary": "/api/v1/enum/enums",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "All enums retrieved successfully."
+                    },
+                    "enums": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
     "/": {
       "get": {
         "summary": "/",

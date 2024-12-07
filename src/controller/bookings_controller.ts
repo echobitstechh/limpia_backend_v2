@@ -155,7 +155,6 @@ export const getNearByBookings = async (req: Request, res: Response) => {
     try {
         const { id: userId, role } = req.user as { id: string; role: string };
 
-        console.log("Role is", role);
         if (role !== UserRole.Cleaner) {
             return res.status(403).json({
                 status: 403,
@@ -214,7 +213,9 @@ export const getNearByBookings = async (req: Request, res: Response) => {
                 {
                     model: Property,
                     as: 'property',
-                    attributes: ['id', 'type', 'nameOfProperty', 'numberOfUnits', 'numberOfRooms', 'numberOfBathrooms', 'addressId', 'images', 'status', 'ownerId'],
+                    attributes: ['id', 'type', 'nameOfProperty', 'numberOfUnits',
+                        'numberOfRooms', 'numberOfBathrooms', 'addressId', 'images',
+                        'status', 'ownerId'],
                     include: [
                         {
                             model: Address,
