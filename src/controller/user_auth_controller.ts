@@ -5,6 +5,7 @@ import { User } from '@src/models/User';
 import { signToken, signRefreshToken } from '@src/util/token';
 import {GenericStatusConstant, UserRole} from "@src/models/enum/enums";
 import {Address} from "@src/models/Address";
+import {Property} from "@src/models/Property";
 
 export const Login = async (req: Request, res: Response) => {
     try {
@@ -115,7 +116,7 @@ export const signUp = async (req: Request, res: Response) => {
             street: street
         });
 
-        // Create User
+
         const user = await User.create({
             firstName,
             lastName,
@@ -126,9 +127,17 @@ export const signUp = async (req: Request, res: Response) => {
             status: GenericStatusConstant.Active,
         });
 
+        let property = await Property.create({
+            type: role || 'HomeOwner Property',
+            nameOfProperty: `HomeOwner Property - ${user.id}`,
+            addressId: userAddress.id,
+            ownerId: user.id,
+            status: GenericStatusConstant.Active,
+        });
+
         let cleanerDetails = null;
 
-        // Create Cleaner Data if the role is 'Cleaner'
+
         if (role === UserRole.Cleaner) {
             const cleaner = await Cleaner.create({
                 userId: user.id,

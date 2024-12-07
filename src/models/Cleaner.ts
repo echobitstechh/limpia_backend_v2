@@ -1,13 +1,16 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { User } from './user'; // Import the User model
+import { User } from './user';
+import {DayTypeConstant, PeriodConstant} from "@src/models/enum/enums";
+import {Booking} from "@src/models/Booking";
+
 
 interface CleanerAttributes {
     id: string;
     userId: string;
     preferredLocations?: string[];
     services?: string[];
-    availability?: string[];
-    availabilityTime?: string[];
+    availability?: DayTypeConstant[];
+    availabilityTime?: PeriodConstant[];
     preferredJobType?: string;
 }
 
@@ -18,8 +21,8 @@ class Cleaner extends Model<CleanerAttributes, CleanerCreationAttributes> {
     public userId!: string;
     public preferredLocations?: string[];
     public services?: string[];
-    public availability?: string[];
-    public availabilityTime?: string[];
+    public availability?: DayTypeConstant[];
+    public availabilityTime?: PeriodConstant[];
     public preferredJobType?: string;
 
     public readonly createdAt!: Date;
@@ -27,6 +30,8 @@ class Cleaner extends Model<CleanerAttributes, CleanerCreationAttributes> {
 
     // Association
     public user?: User;
+    public ignoredBookings?: Booking[];
+    public addIgnoredBooking!: (bookingId: string) => Promise<void>;
 }
 
 const initCleaner = (sequelize: Sequelize) => {

@@ -6,6 +6,8 @@ import {
     StaffingTypeConstant
 } from "@src/models/enum/enums";
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
+import {User} from "@src/models/User";
+import {Property} from "@src/models/Property";
 
 
 
@@ -16,6 +18,8 @@ interface BookingAttributes {
     propertyType: PropertyTypeConstant;
     cleanerId?: string[]; //TODO: UI Supports multiple cleaners. This should be an array ??`
     numberOfRooms?: string;
+    cancelReason?: string;
+    rescheduleReason?: string;
     numberOfBathrooms?: string;
     cleanerPreferences?: string;
     staffingType?: StaffingTypeConstant;
@@ -48,6 +52,8 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public propertyType!: PropertyTypeConstant;
     public cleanerId?: string[];
     public propertyId?: string;
+    public cancelReason?: string;
+    public rescheduleReason?: string;
     public numberOfRooms?: string;
     public numberOfBathrooms?: string;
     public cleanerPreferences?: string;
@@ -58,6 +64,9 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public price?: bigint;
     public paymentStatus?: PaymentStatusConstant;
     public bookingStatus?: BookingStatusConstant;
+
+    // Association
+    public property?: Property;
 
 }
 
@@ -87,7 +96,7 @@ const initBooking = (sequelize: Sequelize) => {
             },
             cleanerId: {
                 type: DataTypes.UUID,
-                allowNull: false,
+                allowNull: true,
                 references: {
                     model: 'Cleaners',
                     key: 'id',
@@ -108,6 +117,14 @@ const initBooking = (sequelize: Sequelize) => {
                 allowNull: true,
             },
             numberOfBathrooms: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            rescheduleReason: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            cancelReason: {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
