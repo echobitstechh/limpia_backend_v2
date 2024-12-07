@@ -2,7 +2,7 @@ export enum UserRole {
   Cleaner = "Cleaner",
   HomeOwner = "HomeOwner",
   PropertyManager = "PropertyManager",
-  Admin = "Admin", // Optional additional roles
+  Admin = "Admin",
 }
 
 export enum GenericStatusConstant {
@@ -92,3 +92,19 @@ export enum BathroomTasks {
   CABINETS_DRAWERS = "Cabinets & Drawers",
   FLOORING = "Flooring",
 }
+
+export const AllEnums = {
+  UserRole: Object.values(UserRole),
+  GenericStatusConstant: Object.values(GenericStatusConstant),
+  PropertyTypeConstant: Object.values(PropertyTypeConstant),
+  StaffingTypeConstant: Object.values(StaffingTypeConstant),
+  CleaningTypeConstant: Object.values(CleaningTypeConstant),
+  PeriodConstant: Object.values(PeriodConstant),
+  DayTypeConstant: Object.values(DayTypeConstant),
+  BookingAction: Object.values(BookingAction),
+  BookingStatusConstant: Object.values(BookingStatusConstant),
+  PaymentStatusConstant: Object.values(PaymentStatusConstant),
+  GeneralAreaTasks: Object.values(GeneralAreaTasks),
+  KitchenTasks: Object.values(KitchenTasks),
+  BathroomTasks: Object.values(BathroomTasks),
+};

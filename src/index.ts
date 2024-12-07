@@ -18,6 +18,7 @@ import bookingRoute from "./routes/booking";
 import loginRoute from "./routes/LoggedInUser/loggedInUser";
 import notificationRoute from "./routes/Notification/notification";
 import messageRoute from "./routes/Message/message";
+import enumRoute from "./routes/enum";
 
 import { swaggerConfig } from "@src/config/swagger_config";
 
@@ -73,6 +74,7 @@ if (fs.existsSync(swaggerFilePath)) {
 
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use("/api/v1/enum", enumRoute);
 
 // Notification / Messaging routes
 app.use("/api/v1/login", loginRoute);
