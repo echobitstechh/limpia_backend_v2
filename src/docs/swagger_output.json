@@ -1251,6 +1251,78 @@
         ]
       }
     },
+    "/api/v1/booking/cleaner-bookings": {
+      "get": {
+        "summary": "/api/v1/booking/cleaner-bookings",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Cleaner bookings retrieved successfully."
+                },
+                "bookings": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid token"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error retrieving cleaner bookings."
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Cannot read properties of undefined (reading 'getTableName')"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/api/v1/booking/action": {
       "post": {
         "summary": "/api/v1/booking/action",
@@ -1258,9 +1330,199 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Booking accepted successfully."
+                },
+                "booking": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "ac18ebb9-0d29-4b1a-879a-1f782e86e92c"
+                    },
+                    "images": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Active"
+                    },
+                    "propertyType": {
+                      "type": "string",
+                      "example": "Apartment"
+                    },
+                    "cleanerId": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "propertyId": {
+                      "type": "string",
+                      "example": "5f10741b-7561-4df4-9dc4-0aeb87426e4d"
+                    },
+                    "numberOfRooms": {
+                      "type": "string",
+                      "example": "5"
+                    },
+                    "numberOfBathrooms": {
+                      "type": "string",
+                      "example": "7"
+                    },
+                    "rescheduleReason": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "cancelReason": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "cleanerPreferences": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "staffingType": {
+                      "type": "string",
+                      "example": "INDIVIDUAL_CLEANER"
+                    },
+                    "cleaningType": {
+                      "type": "string",
+                      "example": "STANDARD_CLEANING"
+                    },
+                    "cleaningTime": {
+                      "type": "string",
+                      "example": "2024-12-25T10:00:00.000Z"
+                    },
+                    "checklistDetails": {
+                      "type": "object",
+                      "properties": {
+                        "kitchenTasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "taskName": {
+                                "type": "string"
+                              },
+                              "completed": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "taskName",
+                              "completed"
+                            ]
+                          },
+                          "example": [
+                            {
+                              "taskName": "Clean countertops",
+                              "completed": false
+                            }
+                          ]
+                        },
+                        "bathroomTasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "taskName": {
+                                "type": "string"
+                              },
+                              "completed": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "taskName",
+                              "completed"
+                            ]
+                          },
+                          "example": [
+                            {
+                              "taskName": "Clean sink",
+                              "completed": false
+                            }
+                          ]
+                        },
+                        "generalAreasTasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "taskName": {
+                                "type": "string"
+                              },
+                              "completed": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "taskName",
+                              "completed"
+                            ]
+                          },
+                          "example": [
+                            {
+                              "taskName": "Dusting",
+                              "completed": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "price": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "paymentStatus": {
+                      "type": "null",
+                      "example": null
+                    },
+                    "bookingStatus": {
+                      "type": "string",
+                      "example": "IN_PROGRESS"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-12-07T01:21:04.720Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-12-07T23:20:02.216Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid token"
+                }
+              }
+            }
+          }
+        },
         "tags": [
           "booking"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },

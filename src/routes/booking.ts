@@ -1,5 +1,11 @@
 import {Router} from "express";
-import {actionBooking, createBooking, getBookings, getNearByBookings} from "@src/controller/bookings_controller";
+import {
+    actionBooking,
+    createBooking,
+    getBookings,
+    getCleanerBookings,
+    getNearByBookings
+} from "@src/controller/bookings_controller";
 import {authenticate} from "@src/middleware/auth";
 
 
@@ -12,6 +18,9 @@ router.get('/', authenticate, getBookings as any);
 router.get('/nearby', authenticate, getNearByBookings as any);
 
 router.post('/action', authenticate, actionBooking as any);
+
+router.get('/cleaner-bookings', authenticate, getCleanerBookings);
+
 
 
 export default router;
