@@ -1,0 +1,1371 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "limpia_backend_v2",
+    "version": "0.0.0",
+    "description": "Specification JSONs: [v2](/api-spec/v2), [v3](/api-spec/v3)."
+  },
+  "paths": {
+    "/api/v1/auth/signin": {
+      "post": {
+        "summary": "/api/v1/auth/signin",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successful"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "64920f27-5b86-480b-8306-0006e0c7bff0"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "example": "Abbas"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "Irekeola"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "airekeola+cleaner@gmail.com"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "Cleaner"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "Active"
+                        },
+                        "addressId": {
+                          "type": "string",
+                          "example": "05adba9a-3120-423a-86a2-8a54daf42cd3"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-07T00:51:58.944Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-07T00:51:58.944Z"
+                        },
+                        "roleDetails": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "469d0e00-73f4-4234-83f7-7e640dfbefc9"
+                            },
+                            "userId": {
+                              "type": "string",
+                              "example": "64920f27-5b86-480b-8306-0006e0c7bff0"
+                            },
+                            "preferredLocations": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "TX"
+                              ]
+                            },
+                            "services": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "STANDARD_CLEANING"
+                              ]
+                            },
+                            "availability": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "WEEKDAYS"
+                              ]
+                            },
+                            "availabilityTime": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": [
+                                "MORNING"
+                              ]
+                            },
+                            "preferredJobType": {
+                              "type": "string",
+                              "example": "Full-time"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-12-07T00:51:58.966Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-12-07T00:51:58.966Z"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTIwZjI3LTViODYtNDgwYi04MzA2LTAwMDZlMGM3YmZmMCIsInJvbGUiOiJDbGVhbmVyIiwiaWF0IjoxNzMzNTMzMjQ2LCJleHAiOjE3MzM1MzQxNDZ9.KPaEXw4wJLeykX9LtfkTw_5e-gNkFKjyQSXfhD0EPPE"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTIwZjI3LTViODYtNDgwYi04MzA2LTAwMDZlMGM3YmZmMCIsInJvbGUiOiJDbGVhbmVyIiwiaWF0IjoxNzMzNTMzMjQ2LCJleHAiOjE3MzQ4MjkyNDZ9.WKnbbuyeSCAPVG69THr4ofLXuRcCW-2ZOZG4z_WYKR8"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email, password, and role are required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email not registered"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/signup": {
+      "post": {
+        "summary": "/api/v1/auth/signup",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User registered successfully"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "469d0e00-73f4-4234-83f7-7e640dfbefc9"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "64920f27-5b86-480b-8306-0006e0c7bff0"
+                        },
+                        "preferredLocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "TX"
+                          ]
+                        },
+                        "services": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "STANDARD_CLEANING"
+                          ]
+                        },
+                        "availability": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "WEEKDAYS"
+                          ]
+                        },
+                        "availabilityTime": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "MORNING"
+                          ]
+                        },
+                        "preferredJobType": {
+                          "type": "string",
+                          "example": "Full-time"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-07T00:51:58.966Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-07T00:51:58.966Z"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "64920f27-5b86-480b-8306-0006e0c7bff0"
+                            },
+                            "firstName": {
+                              "type": "string",
+                              "example": "Abbas"
+                            },
+                            "lastName": {
+                              "type": "string",
+                              "example": "Irekeola"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "airekeola+cleaner@gmail.com"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "Cleaner"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "Active"
+                            },
+                            "addressId": {
+                              "type": "string",
+                              "example": "05adba9a-3120-423a-86a2-8a54daf42cd3"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2024-12-07T00:51:58.944Z"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "example": "2024-12-07T00:51:58.944Z"
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "example": "05adba9a-3120-423a-86a2-8a54daf42cd3"
+                                },
+                                "address": {
+                                  "type": "string",
+                                  "example": "1200 Fuller Wiser Rd"
+                                },
+                                "street": {
+                                  "type": "string",
+                                  "example": "Fuller Wiser"
+                                },
+                                "unitNumber": {
+                                  "example": null,
+                                  "nullable": true
+                                },
+                                "city": {
+                                  "type": "string",
+                                  "example": "Euless"
+                                },
+                                "location": {
+                                  "type": "object",
+                                  "properties": {
+                                    "lat": {
+                                      "type": "string",
+                                      "example": "24.00"
+                                    },
+                                    "long": {
+                                      "type": "string",
+                                      "example": "45.00"
+                                    }
+                                  }
+                                },
+                                "state": {
+                                  "type": "string",
+                                  "example": "TX"
+                                },
+                                "country": {
+                                  "type": "string",
+                                  "example": "USA"
+                                },
+                                "zipCode": {
+                                  "type": "string",
+                                  "example": "76039"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "example": "2024-12-07T00:51:58.933Z"
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "example": "2024-12-07T00:51:58.933Z"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTIwZjI3LTViODYtNDgwYi04MzA2LTAwMDZlMGM3YmZmMCIsInJvbGUiOiJDbGVhbmVyIiwiaWF0IjoxNzMzNTMyNzE4LCJleHAiOjE3MzM1MzM2MTh9.wW_5rSLev8e786qOjoDqSjz3aB2zCy-5tNiLl6M50TQ"
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTIwZjI3LTViODYtNDgwYi04MzA2LTAwMDZlMGM3YmZmMCIsInJvbGUiOiJDbGVhbmVyIiwiaWF0IjoxNzMzNTMyNzE4LCJleHAiOjE3MzQ4Mjg3MTh9.DFP3z4v5fIK-r4IFB9BJCkRjQ_lWprvTLCIhrG9gweU"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Missing required fields"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/booking/create": {
+      "post": {
+        "summary": "/api/v1/booking/create",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Booking created successfully."
+                    },
+                    "booking": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "ac18ebb9-0d29-4b1a-879a-1f782e86e92c"
+                        },
+                        "propertyId": {
+                          "type": "string",
+                          "example": "5f10741b-7561-4df4-9dc4-0aeb87426e4d"
+                        },
+                        "cleaningType": {
+                          "type": "string",
+                          "example": "STANDARD_CLEANING"
+                        },
+                        "cleaningTime": {
+                          "type": "string",
+                          "example": "2024-12-25T10:00:00.000Z"
+                        },
+                        "propertyType": {
+                          "type": "string",
+                          "example": "Apartment"
+                        },
+                        "numberOfRooms": {
+                          "type": "string",
+                          "example": "5"
+                        },
+                        "numberOfBathrooms": {
+                          "type": "string",
+                          "example": "7"
+                        },
+                        "checklistDetails": {
+                          "type": "object",
+                          "properties": {
+                            "kitchenTasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "taskName": {
+                                    "type": "string"
+                                  },
+                                  "completed": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
+                              },
+                              "example": [
+                                {
+                                  "taskName": "Clean countertops",
+                                  "completed": false
+                                }
+                              ]
+                            },
+                            "bathroomTasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "taskName": {
+                                    "type": "string"
+                                  },
+                                  "completed": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
+                              },
+                              "example": [
+                                {
+                                  "taskName": "Clean sink",
+                                  "completed": false
+                                }
+                              ]
+                            },
+                            "generalAreasTasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "taskName": {
+                                    "type": "string"
+                                  },
+                                  "completed": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
+                              },
+                              "example": [
+                                {
+                                  "taskName": "Dusting",
+                                  "completed": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "staffingType": {
+                          "type": "string",
+                          "example": "INDIVIDUAL_CLEANER"
+                        },
+                        "bookingStatus": {
+                          "type": "string",
+                          "example": "PENDING"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "Active"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-07T01:21:04.720Z"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-07T01:21:04.720Z"
+                        },
+                        "images": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "cleanerId": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "rescheduleReason": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "cancelReason": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "cleanerPreferences": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "price": {
+                          "example": null,
+                          "nullable": true
+                        },
+                        "paymentStatus": {
+                          "example": null,
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, add token "
+                    },
+                    "status": {
+                      "type": "number",
+                      "example": 401
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error creating booking."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "invalid input value for enum \"enum_Bookings_staffingType\": \"Individual\""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ]
+      }
+    },
+    "/api/v1/booking": {
+      "get": {
+        "summary": "/api/v1/booking",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Bookings retrieved successfully."
+                    },
+                    "bookings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "images": {
+                            "nullable": true
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "propertyType": {
+                            "type": "string"
+                          },
+                          "cleanerId": {
+                            "nullable": true
+                          },
+                          "propertyId": {
+                            "type": "string"
+                          },
+                          "numberOfRooms": {
+                            "type": "string"
+                          },
+                          "numberOfBathrooms": {
+                            "type": "string"
+                          },
+                          "rescheduleReason": {
+                            "nullable": true
+                          },
+                          "cancelReason": {
+                            "nullable": true
+                          },
+                          "cleanerPreferences": {
+                            "nullable": true
+                          },
+                          "staffingType": {
+                            "type": "string"
+                          },
+                          "cleaningType": {
+                            "type": "string"
+                          },
+                          "cleaningTime": {
+                            "type": "string"
+                          },
+                          "checklistDetails": {
+                            "type": "object",
+                            "properties": {
+                              "kitchenTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              },
+                              "bathroomTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              },
+                              "generalAreasTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "price": {
+                            "nullable": true
+                          },
+                          "paymentStatus": {
+                            "nullable": true
+                          },
+                          "bookingStatus": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "property": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "nameOfProperty": {
+                                "type": "string"
+                              },
+                              "numberOfUnits": {
+                                "nullable": true
+                              },
+                              "numberOfRooms": {
+                                "nullable": true
+                              },
+                              "numberOfBathrooms": {
+                                "nullable": true
+                              },
+                              "addressId": {
+                                "type": "string"
+                              },
+                              "images": {
+                                "nullable": true
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "ownerId": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "street": {
+                                    "type": "string"
+                                  },
+                                  "unitNumber": {
+                                    "nullable": true
+                                  },
+                                  "city": {
+                                    "type": "string"
+                                  },
+                                  "location": {
+                                    "type": "object",
+                                    "properties": {
+                                      "lat": {
+                                        "type": "string"
+                                      },
+                                      "long": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "country": {
+                                    "type": "string"
+                                  },
+                                  "zipCode": {
+                                    "type": "string"
+                                  },
+                                  "createdAt": {
+                                    "type": "string"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "images",
+                          "status",
+                          "propertyType",
+                          "cleanerId",
+                          "propertyId",
+                          "numberOfRooms",
+                          "numberOfBathrooms",
+                          "rescheduleReason",
+                          "cancelReason",
+                          "cleanerPreferences",
+                          "staffingType",
+                          "cleaningType",
+                          "cleaningTime",
+                          "checklistDetails",
+                          "price",
+                          "paymentStatus",
+                          "bookingStatus",
+                          "createdAt",
+                          "updatedAt",
+                          "property"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": "ac18ebb9-0d29-4b1a-879a-1f782e86e92c",
+                          "images": null,
+                          "status": "Active",
+                          "propertyType": "Apartment",
+                          "cleanerId": null,
+                          "propertyId": "5f10741b-7561-4df4-9dc4-0aeb87426e4d",
+                          "numberOfRooms": "5",
+                          "numberOfBathrooms": "7",
+                          "rescheduleReason": null,
+                          "cancelReason": null,
+                          "cleanerPreferences": null,
+                          "staffingType": "INDIVIDUAL_CLEANER",
+                          "cleaningType": "STANDARD_CLEANING",
+                          "cleaningTime": "2024-12-25T10:00:00.000Z",
+                          "checklistDetails": {
+                            "kitchenTasks": [
+                              {
+                                "taskName": "Clean countertops",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Mop floor",
+                                "completed": false
+                              }
+                            ],
+                            "bathroomTasks": [
+                              {
+                                "taskName": "Clean sink",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Scrub shower",
+                                "completed": false
+                              }
+                            ],
+                            "generalAreasTasks": [
+                              {
+                                "taskName": "Dusting",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Vacuuming",
+                                "completed": false
+                              }
+                            ]
+                          },
+                          "price": null,
+                          "paymentStatus": null,
+                          "bookingStatus": "PENDING",
+                          "createdAt": "2024-12-07T01:21:04.720Z",
+                          "updatedAt": "2024-12-07T01:21:04.720Z",
+                          "property": {
+                            "id": "5f10741b-7561-4df4-9dc4-0aeb87426e4d",
+                            "type": "Cleaner",
+                            "nameOfProperty": "HomeOwner Property - cbdb2370-11c8-4434-868b-cea8c7437f4a",
+                            "numberOfUnits": null,
+                            "numberOfRooms": null,
+                            "numberOfBathrooms": null,
+                            "addressId": "afa39b34-3523-4d13-98ce-ba7538eabc86",
+                            "images": null,
+                            "status": "Active",
+                            "ownerId": "cbdb2370-11c8-4434-868b-cea8c7437f4a",
+                            "createdAt": "2024-12-07T00:58:11.162Z",
+                            "updatedAt": "2024-12-07T00:58:11.162Z",
+                            "address": {
+                              "id": "afa39b34-3523-4d13-98ce-ba7538eabc86",
+                              "address": "1200 Fuller Wiser Rd",
+                              "street": "Fuller Wiser",
+                              "unitNumber": null,
+                              "city": "Euless",
+                              "location": {
+                                "lat": "24.00",
+                                "long": "45.00"
+                              },
+                              "state": "TX",
+                              "country": "USA",
+                              "zipCode": "76039",
+                              "createdAt": "2024-12-07T00:58:11.154Z",
+                              "updatedAt": "2024-12-07T00:58:11.154Z"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, add token "
+                    },
+                    "status": {
+                      "type": "number",
+                      "example": 401
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ]
+      }
+    },
+    "/api/v1/booking/nearby": {
+      "get": {
+        "summary": "/api/v1/booking/nearby",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Found 17 nearby bookings matching your preferences."
+                    },
+                    "bookings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "propertyId": {
+                            "type": "string"
+                          },
+                          "cleaningType": {
+                            "type": "string"
+                          },
+                          "numberOfRooms": {
+                            "type": "string"
+                          },
+                          "numberOfBathrooms": {
+                            "type": "string"
+                          },
+                          "checklistDetails": {
+                            "type": "object",
+                            "properties": {
+                              "kitchenTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              },
+                              "bathroomTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              },
+                              "generalAreasTasks": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "taskName": {
+                                      "type": "string"
+                                    },
+                                    "completed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "cleaningTime": {
+                            "type": "string"
+                          },
+                          "property": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "object",
+                                "properties": {
+                                  "street": {
+                                    "type": "string"
+                                  },
+                                  "city": {
+                                    "type": "string"
+                                  },
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "country": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "distance": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "propertyId",
+                          "cleaningType",
+                          "numberOfRooms",
+                          "numberOfBathrooms",
+                          "checklistDetails",
+                          "cleaningTime",
+                          "property",
+                          "distance"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": "ac18ebb9-0d29-4b1a-879a-1f782e86e92c",
+                          "propertyId": "5f10741b-7561-4df4-9dc4-0aeb87426e4d",
+                          "cleaningType": "STANDARD_CLEANING",
+                          "numberOfRooms": "5",
+                          "numberOfBathrooms": "7",
+                          "checklistDetails": {
+                            "kitchenTasks": [
+                              {
+                                "taskName": "Clean countertops",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Mop floor",
+                                "completed": false
+                              }
+                            ],
+                            "bathroomTasks": [
+                              {
+                                "taskName": "Clean sink",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Scrub shower",
+                                "completed": false
+                              }
+                            ],
+                            "generalAreasTasks": [
+                              {
+                                "taskName": "Dusting",
+                                "completed": false
+                              },
+                              {
+                                "taskName": "Vacuuming",
+                                "completed": false
+                              }
+                            ]
+                          },
+                          "cleaningTime": "2024-12-25T10:00:00.000Z",
+                          "property": {
+                            "id": "5f10741b-7561-4df4-9dc4-0aeb87426e4d",
+                            "address": {
+                              "street": "Fuller Wiser",
+                              "city": "Euless",
+                              "state": "TX",
+                              "country": "USA"
+                            }
+                          },
+                          "distance": 506
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, add token "
+                    },
+                    "status": {
+                      "type": "number",
+                      "example": 401
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Only cleaners can access nearby bookings."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No bookings match your preferences."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ]
+      }
+    },
+    "/api/v1/booking/action": {
+      "post": {
+        "summary": "/api/v1/booking/action",
+        "responses": {},
+        "tags": [
+          "booking"
+        ]
+      }
+    },
+    "/api/v1/enum/enums": {
+      "get": {
+        "summary": "/api/v1/enum/enums",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "All enums retrieved successfully."
+                    },
+                    "enums": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "enum"
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "/",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "example": "Limpia Backend V2 Home!"
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth"
+    },
+    {
+      "name": "booking"
+    },
+    {
+      "name": "enum"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://localhost:3000"
+    },
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Please enter your token with 'Bearer ' prefix (e.g., 'Bearer your-token-here')."
+      }
+    }
+  }
+}

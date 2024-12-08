@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { GenericStatusConstant } from '@src/models/enum/enums';
-import { Address } from './address';
-import { User } from './user';
+import { Address } from './Address';
+import { User } from './User';
 
 interface PropertyAttributes {
     id: string;

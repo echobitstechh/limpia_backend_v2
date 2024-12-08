@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { User } from './user';
+import { User } from './User';
 import {DayTypeConstant, PeriodConstant} from "@src/models/enum/enums";
 import {Booking} from "@src/models/Booking";
 

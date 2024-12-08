@@ -4,8 +4,8 @@
  * @param currentImages - The existing images already stored.
  * @returns A promise that resolves to the updated array of image URLs.
  */
+import cloudinary from '@src/config/cloudinary';
 
-import { uploadPropertyToCloudinary } from "../controllers/Property/property";
 
 export const processAndUploadImages = async (images: string[], currentImages: string[]): Promise<string[]> => {
     if (!Array.isArray(images) || images.length === 0) {
@@ -49,3 +49,16 @@ export const processAndUploadImages = async (images: string[], currentImages: st
     const uploadedImages = await Promise.all(uploadPromises);
     return uploadedImages;
 };
+
+
+export async function uploadPropertyToCloudinary(base64Image: string, folderName: string) {
+    try {
+        const result = await cloudinary.uploader.upload(base64Image, {
+            folder: folderName,
+        });
+        return result.secure_url;
+    } catch (error) {
+        console.error('Error uploading to Cloudinary:', error);
+        throw error;
+    }
+}

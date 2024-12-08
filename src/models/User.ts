@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { UserRole, GenericStatusConstant } from './enum/enums';
-import { Address } from './address';
+import { Address } from './Address';
 
 interface UserAttributes {
     id: string;
