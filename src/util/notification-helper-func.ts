@@ -264,115 +264,115 @@ export const scheduleReminderNotification = () => {
 };
 
 // Schedule reminder notification on server start
-// scheduleReminderNotification();
+scheduleReminderNotification();
 
 // Function for testing reminder notification
 
-// export const addTestBooking = async () => {
-//   try {
-//     // Optionally clear the table first to avoid duplicates during testing
-//     await Booking.destroy({
-//       where: {},
-//     });
+export const addTestBooking = async () => {
+  try {
+    // Optionally clear the table first to avoid duplicates during testing
+    await Booking.destroy({
+      where: {},
+    });
 
-//     const now = new Date();
+    const now = new Date();
 
-//     // Get the time 12 hours and 1 minute from now
+    // Get the time 12 hours and 1 minute from now
 
-//     const tweleveHoursFromNow = new Date(now.getTime() + 12 * 60 * 60 * 1000);
+    const tweleveHoursFromNow = new Date(now.getTime() + 12 * 60 * 60 * 1000);
 
-//     // Add a new test address
+    // Add a new test address
 
-//     // const testAddress = await Address.create({
-//     //   address: "No 1, Test Street",
-//     //   street: "Test Street",
-//     //   city: "Test City",
-//     //   location: { long: "0.00", lat: "0.00" },
-//     //   state: "Test State",
-//     //   country: "Test Country",
-//     // });
+    // const testAddress = await Address.create({
+    //   address: "No 1, Test Street",
+    //   street: "Test Street",
+    //   city: "Test City",
+    //   location: { long: "0.00", lat: "0.00" },
+    //   state: "Test State",
+    //   country: "Test Country",
+    // });
 
-//     // Add a new test user
+    // Add a new test user
 
-//     // const testUser = await User.create({
-//     //   firstName: "Test5",
-//     //   lastName: "Cleaner",
-//     //   email: "cleaner5@gmail.com",
-//     //   password: "password",
-//     //   role: UserRole.Cleaner,
-//     //   status: GenericStatusConstant.Active,
-//     //   addressId: "685cb4a4-2356-4f0e-be19-57b7ae9b8039",
-//     // });
+    // const testUser = await User.create({
+    //   firstName: "Test5",
+    //   lastName: "Cleaner",
+    //   email: "cleaner5@gmail.com",
+    //   password: "password",
+    //   role: UserRole.Cleaner,
+    //   status: GenericStatusConstant.Active,
+    //   addressId: "685cb4a4-2356-4f0e-be19-57b7ae9b8039",
+    // });
 
-//     // Add a new test property
+    // Add a new test property
 
-//     // const testProperty = await Property.create({
-//     //   type: "House",
-//     //   nameOfProperty: "Test Property",
-//     //   numberOfUnits: "1",
-//     //   numberOfRooms: "3",
-//     //   numberOfBathrooms: "2",
-//     //   addressId: "685cb4a4-2356-4f0e-be19-57b7ae9b8039",
-//     //   images: ["image1.jpg", "image2.jpg"],
-//     //   status: GenericStatusConstant.Active,
-//     //   ownerId: "a609eeae-10f1-4c9b-a676-e1832e53151b",
-//     // });
+    // const testProperty = await Property.create({
+    //   type: "House",
+    //   nameOfProperty: "Test Property",
+    //   numberOfUnits: "1",
+    //   numberOfRooms: "3",
+    //   numberOfBathrooms: "2",
+    //   addressId: "685cb4a4-2356-4f0e-be19-57b7ae9b8039",
+    //   images: ["image1.jpg", "image2.jpg"],
+    //   status: GenericStatusConstant.Active,
+    //   ownerId: "a609eeae-10f1-4c9b-a676-e1832e53151b",
+    // });
 
-//     // public id!: string;
-//     // public userId!: string;
-//     // public preferredLocations?: string[];
-//     // public services?: string[];
-//     // public availability?: DayTypeConstant[];
-//     // public availabilityTime?: PeriodConstant[];
-//     // public preferredJobType?: string;
+    // public id!: string;
+    // public userId!: string;
+    // public preferredLocations?: string[];
+    // public services?: string[];
+    // public availability?: DayTypeConstant[];
+    // public availabilityTime?: PeriodConstant[];
+    // public preferredJobType?: string;
 
-//     // Add a new test cleaner
+    // Add a new test cleaner
 
-//     // const testCleaner = await Cleaner.create({
-//     //   userId: testUser.id,
-//     //   preferredLocations: ["Lekki", "Ikoyi"],
-//     //   services: ["Cleaning", "Laundry"],
-//     //   availability: [DayTypeConstant.WEEKDAYS, DayTypeConstant.WEEKENDS],
-//     //   availabilityTime: [PeriodConstant.EVENING, PeriodConstant.AFTERNOON],
-//     //   preferredJobType: "Cleaning",
-//     // });
+    // const testCleaner = await Cleaner.create({
+    //   userId: testUser.id,
+    //   preferredLocations: ["Lekki", "Ikoyi"],
+    //   services: ["Cleaning", "Laundry"],
+    //   availability: [DayTypeConstant.WEEKDAYS, DayTypeConstant.WEEKENDS],
+    //   availabilityTime: [PeriodConstant.EVENING, PeriodConstant.AFTERNOON],
+    //   preferredJobType: "Cleaning",
+    // });
 
-//     // Add a new test booking
+    // Add a new test booking
 
-//     // delete booking if it already exists
+    // delete booking if it already exists
 
-//     await Booking.destroy({
-//       where: {
-//         status: GenericStatusConstant.Active,
-//       },
-//     });
+    await Booking.destroy({
+      where: {
+        status: GenericStatusConstant.Active,
+      },
+    });
 
-//     const testBooking = await Booking.create({
-//       images: ["image1.jpg", "image2.jpg"],
-//       status: GenericStatusConstant.Active,
-//       propertyType: PropertyTypeConstant.House,
-//       cleanerId: "45e2947b-9a18-457e-830d-ec7db42a9f37",
-//       propertyId: "ec7d5b6c-551f-432b-81b3-d44f7cafff4a",
-//       cancelReason: "Not available",
-//       rescheduleReason: "Not available",
-//       numberOfRooms: "3",
-//       numberOfBathrooms: "2",
-//       cleanerPreferences: "None",
-//       staffingType: StaffingTypeConstant.CLEANING_CREW,
-//       cleaningType: CleaningTypeConstant.DEEP_CLEANING,
-//       cleaningTime: tweleveHoursFromNow,
-//       price: 20000n,
-//       paymentStatus: PaymentStatusConstant.COMPLETED,
-//       bookingStatus: BookingStatusConstant.PENDING,
-//     });
+    const testBooking = await Booking.create({
+      images: ["image1.jpg", "image2.jpg"],
+      status: GenericStatusConstant.Active,
+      propertyType: PropertyTypeConstant.House,
+      cleanerId: "45e2947b-9a18-457e-830d-ec7db42a9f37",
+      propertyId: "ec7d5b6c-551f-432b-81b3-d44f7cafff4a",
+      cancelReason: "Not available",
+      rescheduleReason: "Not available",
+      numberOfRooms: "3",
+      numberOfBathrooms: "2",
+      cleanerPreferences: "None",
+      staffingType: StaffingTypeConstant.CLEANING_CREW,
+      cleaningType: CleaningTypeConstant.DEEP_CLEANING,
+      cleaningTime: tweleveHoursFromNow,
+      price: 20000n,
+      paymentStatus: PaymentStatusConstant.COMPLETED,
+      bookingStatus: BookingStatusConstant.PENDING,
+    });
 
-//     handleReminderNotification();
+    // handleReminderNotification();
 
-//     // console.log("Test booking created:", testBooking.toJSON());
-//   } catch (error) {
-//     console.error("Error creating test booking:", error);
-//   }
-// };
+    // console.log("Test booking created:", testBooking.toJSON());
+  } catch (error) {
+    console.error("Error creating test booking:", error);
+  }
+};
 
 // Function to send a accept/reject/reschedule booking notification to homeowner or property manager
 

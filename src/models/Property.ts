@@ -3,6 +3,7 @@ import { GenericStatusConstant } from "@src/models/enum/enums";
 import { Address } from "./Address";
 import { User } from "./User";
 
+
 interface PropertyAttributes {
   id: string;
   type: string;

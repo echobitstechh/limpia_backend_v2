@@ -4,4 +4,4 @@ import { Router } from "express";
 
 const router = Router();
 
-router.put("/", authenticate, cleanerEditProfile);
+router.put("/", authenticate, cleanerEditProfile as any);
