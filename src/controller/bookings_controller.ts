@@ -365,6 +365,77 @@ export const getNearByBookings = async (req: Request, res: Response) => {
     }
 };
 
+export const getCleanerBookings = async (req: Request, res: Response) => {
+    try {
+        const { id: userId, role } = req.user as { id: string; role: string };
+
+        // Check if the user has a Cleaner role
+        if (role !== UserRole.Cleaner) {
+            return res.status(403).json({
+                status: 403,
+                message: 'Only cleaners can retrieve their bookings.',
+            });
+        }
+
+        // Find the cleaner associated with the userId
+        const cleaner = await Cleaner.findOne({
+            where: { userId },
+        });
+
+        if (!cleaner) {
+            return res.status(404).json({
+                status: 404,
+                message: 'Cleaner not found.',
+            });
+        }
+
+        const cleanerId = cleaner.id;
+
+        // Fetch bookings associated with the cleaner using belongsToMany mapping
+        const bookings = await Booking.findAll({
+            include: [
+                {
+                    model: Cleaner,
+                    where: { id: cleanerId }, // Filter by cleaner ID
+                    through: {
+                        attributes: [], // Exclude join table attributes
+                    },
+                },
+                {
+                    model: Property,
+                    as: 'property',
+                    attributes: ['id', 'type', 'nameOfProperty', 'numberOfUnits',
+                        'numberOfRooms', 'numberOfBathrooms', 'addressId', 'images',
+                        'status', 'ownerId'],
+                    include: [
+                        {
+                            model: Address,
+                            as: 'address',
+                            attributes: ['street' ,'street', 'city', 'state', 'country'],
+
+                        },
+                    ],
+                },
+            ],
+        });
+
+        // Respond with the bookings
+        res.status(200).json({
+            status: 200,
+            total: bookings.length,
+            message: 'Cleaner bookings retrieved successfully.',
+            bookings,
+        });
+    } catch (error: any) {
+        console.error('Error retrieving cleaner bookings:', error);
+        res.status(500).json({
+            status: 500,
+            message: 'Error retrieving cleaner bookings.',
+            error: error.message,
+        });
+    }
+};
+
 export const actionBooking = async (req: Request, res: Response) => {
     try {
         const { id: userId, role } = req.user as { id: string; role: string };
