@@ -7,6 +7,7 @@ import {
 } from "@src/models/enum/enums";
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 import {Property} from "@src/models/Property";
+import {Cleaner} from "@src/models/Cleaner";
 
 
 
@@ -64,8 +65,8 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public paymentStatus?: PaymentStatusConstant;
     public bookingStatus?: BookingStatusConstant;
 
-    // Association
     public property?: Property;
+    public addCleaner!: (cleaner: Cleaner) => Promise<void>;
 
 }
 
