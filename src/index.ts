@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 config();
-import express, { Request, Response, NextFunction } from "express";
+import express, {Request, Response, NextFunction, Express} from "express";
 import nocache from "nocache";
 import session from "express-session";
 import createError, { HttpError } from "http-errors";
@@ -9,7 +9,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { sequelize } from "./config/config";
-import expressOasGenerator from "express-oas-generator";
+import expressOasGenerator, {HandleResponsesOptions} from "express-oas-generator";
 import swaggerUi from "swagger-ui-express";
 import * as fs from "fs";
 
@@ -21,7 +21,9 @@ import { swaggerConfig } from "@src/config/swagger_config";
 
 const app = express();
 
-expressOasGenerator.handleResponses(app, swaggerConfig);
+
+expressOasGenerator.handleResponses(app as unknown as import('express-oas-generator/node_modules/@types/express').Express, swaggerConfig);
+
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));
@@ -84,7 +86,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Error handler
-app.use((err: HttpError, req: Request, res: Response, next) => {
+app.use((err: HttpError, req: Request, res: Response, next: any) => {
     if (!res.headersSent) {
         res.status(err.status || 500).json({
             status: err.status || 500,

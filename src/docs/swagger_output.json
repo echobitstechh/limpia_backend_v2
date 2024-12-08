@@ -1555,7 +1555,9 @@
             }
           }
         },
-        "tags": [],
+        "tags": [
+          "enum"
+        ],
         "produces": [
           "application/json"
         ]
@@ -1608,6 +1610,9 @@
     },
     {
       "name": "booking"
+    },
+    {
+      "name": "enum"
     }
   ]
 }

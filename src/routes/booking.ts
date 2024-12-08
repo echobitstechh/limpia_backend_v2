@@ -11,16 +11,16 @@ import {authenticate} from "@src/middleware/auth";
 
 const router = Router();
 
-router.post('/create', authenticate, createBooking);
+router.post('/create', authenticate, createBooking as any);
 
-router.get('/', authenticate, getBookings);
+router.get('/', authenticate, getBookings as any);
 
-router.get('/nearby', authenticate, getNearByBookings);
+router.get('/nearby', authenticate, getNearByBookings as any);
 
+router.post('/action', authenticate, actionBooking as any);
 
 router.get('/cleaner-bookings', authenticate, getCleanerBookings);
 
-router.post('/action', authenticate, actionBooking);
 
 
 export default router;
