@@ -19,7 +19,7 @@ router.get('/nearby', authenticate, getNearByBookings as any);
 
 router.post('/action', authenticate, actionBooking as any);
 
-router.get('/cleaner-bookings', authenticate, getCleanerBookings);
+router.get('/cleaner-bookings', authenticate, getCleanerBookings as any);
 
 
 
