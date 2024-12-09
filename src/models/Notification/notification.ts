@@ -9,8 +9,10 @@ export enum NotificationType {
   NewBooking = "New Booking",
   JobReminder = "Job Reminder",
   BookingAccepted = "Booking Accepted",
-  BookingRejected = "Booking Rejected",
+  BookingIgnored = "Booking Ignored",
   BookingRescheduled = "Booking Rescheduled",
+  BookingCancelled = "Booking Cancelled",
+  BookingCompleted = "Booking Completed",
 }
 
 interface NotificationAttributes {

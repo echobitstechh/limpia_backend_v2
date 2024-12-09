@@ -1,8 +1,14 @@
 // Path: src/utils/notification-helper-func.ts
+
+// All functions in this file are helper functions for sending notifications to users
+// and can be used anywhere in the application with the appropriate parameters
+
+// Except for the scheduleReminderNotification function, which as it name implies send reminder notifications to cleaners
+// for jobs starting in 12 hours
+
 import { Booking } from "@src/models/Booking";
 import {
   Notification,
-  NotificationCreationAttributes,
   NotificationType,
 } from "../models/Notification/notification";
 import { Cleaner } from "@src/models/Cleaner";
@@ -14,7 +20,6 @@ import {
 import cron from "node-cron";
 import moment from "moment";
 import { Op } from "sequelize";
-import { Property } from "@src/models/Property";
 import {
   BookingAction,
   BookingStatusConstant,
@@ -88,14 +93,14 @@ export const sendNotificationThroughTopic = async (
 
 // function to handle Notification on new created bookings
 
-export const handleNotification = async (
+export const handleNewBookingNotification = async (
   booking: Booking,
   senderId: string
 ) => {
   try {
     // After successfully created booking save notification for cleaners
     const bookingId = booking.id;
-    const bookingTime = booking.cleaningTime;
+    const notificationTime = new Date();
     const notificationType = NotificationType.NewBooking;
     const recipientType = UserRole.Cleaner;
     const cleaners = await Cleaner.findAll({});
@@ -110,7 +115,7 @@ export const handleNotification = async (
       bookingId,
     }));
 
-    // Save notification for all cleaners
+    // Save notification for all cleaners in the DB
     await Notification.bulkCreate(notificationData);
 
     // Get all logged in cleaners fcmToken for real-time notification
@@ -123,7 +128,7 @@ export const handleNotification = async (
 
     sendNotificationThroughTopic("cleaners", "New booking Added", message, {
       bookingId,
-      bookingTime: bookingTime?.toString() as string,
+      notificationTime: notificationTime.toISOString(),
     });
   } catch (error: any) {
     console.error("Error handling notification:", error);
@@ -446,16 +451,37 @@ export const handleAcceptRejectBookingNotification = async (
   action: string
 ) => {
   try {
-    const modifiedAction = action === "reschedule" ? "reschedul" : action;
+    const actionLowerCase = action.toLowerCase();
+    const modifiedAction =
+      actionLowerCase === "reschedule" ? "reschedul" : actionLowerCase;
     const bookingId = booking.id;
     const message = `Your booking has been ${modifiedAction}ed by the cleaner`;
 
-    const notificationType =
-      action === "accept" || action === "reject"
-        ? action === "accept"
-          ? NotificationType.BookingAccepted
-          : NotificationType.BookingRejected
-        : NotificationType.BookingRescheduled;
+    // ACCEPT = "ACCEPT",
+    // IGNORE = "IGNORE",
+    // RESCHEDULE = "RESCHEDULE",
+    // CANCEL = "CANCEL",
+    // COMPLETE = "COMPLETE",
+
+    let notificationType: NotificationType;
+
+    switch (action) {
+      case BookingAction.ACCEPT:
+        notificationType = NotificationType.BookingAccepted;
+        break;
+      case BookingAction.RESCHEDULE:
+        notificationType = NotificationType.BookingRescheduled;
+        break;
+      case BookingAction.CANCEL:
+        notificationType = NotificationType.BookingCancelled;
+        break;
+      case BookingAction.COMPLETE:
+        notificationType = NotificationType.BookingCompleted;
+        break;
+      default:
+        notificationType = NotificationType.BookingIgnored;
+        break;
+    }
 
     const senderId = booking.cleanerId;
 
@@ -464,13 +490,7 @@ export const handleAcceptRejectBookingNotification = async (
       return;
     }
 
-    const property = await Property.findOne({
-      where: {
-        id: booking.propertyId,
-      },
-    });
-
-    const recipientId = property?.ownerId;
+    const recipientId = booking.property?.ownerId;
 
     // checking if there's a recipient for this notification
 
@@ -479,11 +499,7 @@ export const handleAcceptRejectBookingNotification = async (
       return;
     }
 
-    const properties = await Property.findOne({
-      where: {
-        id: booking.propertyId,
-      },
-    });
+    const properties = booking.property;
 
     if (!properties) {
       console.log("Property not found.");
