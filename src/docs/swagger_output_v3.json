@@ -80,36 +80,28 @@
                               "items": {
                                 "type": "string"
                               },
-                              "example": [
-                                "TX"
-                              ]
+                              "example": ["TX"]
                             },
                             "services": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": [
-                                "STANDARD_CLEANING"
-                              ]
+                              "example": ["STANDARD_CLEANING"]
                             },
                             "availability": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": [
-                                "WEEKDAYS"
-                              ]
+                              "example": ["WEEKDAYS"]
                             },
                             "availabilityTime": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": [
-                                "MORNING"
-                              ]
+                              "example": ["MORNING"]
                             },
                             "preferredJobType": {
                               "type": "string",
@@ -160,6 +152,26 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Incorrect  password"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
@@ -181,9 +193,7 @@
             }
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/v1/auth/signup": {
@@ -221,36 +231,28 @@
                           "items": {
                             "type": "string"
                           },
-                          "example": [
-                            "TX"
-                          ]
+                          "example": ["TX"]
                         },
                         "services": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": [
-                            "STANDARD_CLEANING"
-                          ]
+                          "example": ["STANDARD_CLEANING"]
                         },
                         "availability": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": [
-                            "WEEKDAYS"
-                          ]
+                          "example": ["WEEKDAYS"]
                         },
                         "availabilityTime": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": [
-                            "MORNING"
-                          ]
+                          "example": ["MORNING"]
                         },
                         "preferredJobType": {
                           "type": "string",
@@ -399,9 +401,7 @@
             }
           }
         },
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/v1/booking/create": {
@@ -469,10 +469,7 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": [
-                                  "taskName",
-                                  "completed"
-                                ]
+                                "required": ["taskName", "completed"]
                               },
                               "example": [
                                 {
@@ -493,10 +490,7 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": [
-                                  "taskName",
-                                  "completed"
-                                ]
+                                "required": ["taskName", "completed"]
                               },
                               "example": [
                                 {
@@ -517,10 +511,7 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": [
-                                  "taskName",
-                                  "completed"
-                                ]
+                                "required": ["taskName", "completed"]
                               },
                               "example": [
                                 {
@@ -631,9 +622,7 @@
             }
           }
         },
-        "tags": [
-          "booking"
-        ]
+        "tags": ["booking"]
       }
     },
     "/api/v1/booking": {
@@ -717,10 +706,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               },
                               "bathroomTasks": {
@@ -735,10 +721,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               },
                               "generalAreasTasks": {
@@ -753,10 +736,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               }
                             }
@@ -1000,9 +980,7 @@
             }
           }
         },
-        "tags": [
-          "booking"
-        ]
+        "tags": ["booking"]
       }
     },
     "/api/v1/booking/nearby": {
@@ -1059,10 +1037,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               },
                               "bathroomTasks": {
@@ -1077,10 +1052,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               },
                               "generalAreasTasks": {
@@ -1095,10 +1067,7 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": [
-                                    "taskName",
-                                    "completed"
-                                  ]
+                                  "required": ["taskName", "completed"]
                                 }
                               }
                             }
@@ -1266,9 +1235,7 @@
             }
           }
         },
-        "tags": [
-          "booking"
-        ]
+        "tags": ["booking"]
       }
     },
     "/api/v1/booking/cleaner-bookings": {
