@@ -9,8 +9,11 @@ import { initProperty, Property } from "@src/models/Property";
 import { Booking, initBooking } from "@src/models/Booking";
 import { initNotification } from "@src/models/Notification/notification";
 import { initLoggedInUser } from "@src/models/LoggedInUser/loggedInUser";
-import { initConversation } from "@src/models/Message/conversation";
-import { initMessage } from "@src/models/Message/message";
+import {
+  Conversation,
+  initConversation,
+} from "@src/models/Message/conversation";
+import { initMessage, Message } from "@src/models/Message/message";
 
 const database = process.env.DB_NAME || "";
 const username = process.env.DB_USER || "";
@@ -89,6 +92,17 @@ function defineAssociations() {
   console.log("Associating Booking -> Property...");
   Booking.belongsTo(Property, { foreignKey: "propertyId", as: "property" });
   Property.hasMany(Booking, { foreignKey: "propertyId", as: "bookings" });
+
+  // Conversation -> Message
+  console.log("Associating Conversation -> Message...");
+  Conversation.hasMany(Message, {
+    foreignKey: "conversationId",
+    as: "messages",
+  });
+  Message.belongsTo(Conversation, {
+    foreignKey: "conversationId",
+    as: "conversation",
+  });
 
   console.log("All associations defined successfully");
 }

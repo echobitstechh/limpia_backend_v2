@@ -107,7 +107,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
  *                   example: "Error message detail here"
  */
 
-router.get("/:id", getMessage);
+router.get("/:id", authenticate, getMessage as any);
 
 /**
  * @swagger
@@ -211,7 +211,7 @@ router.get("/:id", getMessage);
  *                   example: "An unexpected error occurred"
  */
 
-router.post("/", authenticate, sendMessage);
+router.post("/", authenticate, sendMessage as any);
 
 /**
  * @swagger
@@ -224,8 +224,8 @@ router.post("/", authenticate, sendMessage);
  *
  */
 
-router.post("/markDelivered", authenticate, markMessageAsDelivered);
+router.post("/markDelivered", authenticate, markMessageAsDelivered as any);
 
-router.post("/markRead", authenticate, markMessageAsRead);
+router.post("/markRead", authenticate, markMessageAsRead as any);
 
 export default router;

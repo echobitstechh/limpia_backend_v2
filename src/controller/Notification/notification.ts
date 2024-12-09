@@ -6,7 +6,10 @@ import {
 import { Booking } from "@src/models/Booking";
 import { GenericStatusConstant, UserRole } from "@src/models/enum/enums";
 import { Property } from "@src/models/Property";
-import { handleAcceptRejectBookingNotification } from "@src/util/notification-helper-func";
+import {
+  handleAcceptRejectBookingNotification,
+  sendNotificationThroughTopic,
+} from "@src/util/notification-helper-func";
 
 export const getAllCleanersNotification = async (
   request: Request,
@@ -132,7 +135,19 @@ export const getUserNotification = async (
 //       });
 //     }
 
-//     handleAcceptRejectBookingNotification(booking, UserRole.HomeOwner, action);
+//     // handleAcceptRejectBookingNotification(booking, UserRole.HomeOwner, action);
+
+//     const bookingToSend = {
+//       id: booking.id,
+//       addTime: new Date().toTimeString(),
+//     };
+
+//     sendNotificationThroughTopic(
+//       "cleaners",
+//       "New Booking Added",
+//       "New booking has been added",
+//       bookingToSend
+//     );
 
 //     return res.status(201).json({
 //       status: 201,

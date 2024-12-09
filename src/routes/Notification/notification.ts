@@ -91,8 +91,8 @@ const router = Router();
  *                   example: "Error message detail here"
  */
 
-router.get("/", authenticate, getUserNotification);
+router.get("/", authenticate, getUserNotification as any);
 
-// router.post("/action", testBookingActionNotification);
+// router.post("/action", testBookingActionNotification as any);
 
 export default router;

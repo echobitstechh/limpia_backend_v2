@@ -95,14 +95,14 @@ const router = Router();
  *                   example: "Error message detail here"
  */
 
-router.post("/", AddLoggedInUser);
+router.post("/", AddLoggedInUser as any);
 
 // Get logged in users
 
-router.get("/", authenticate, getLoggedInUsers);
+router.get("/", authenticate, getLoggedInUsers as any);
 
 // Log out current logged in user
 
-router.post("/logout", authenticate, logoutUser);
+router.post("/logout", authenticate, logoutUser as any);
 
 export default router;

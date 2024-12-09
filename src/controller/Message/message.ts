@@ -13,6 +13,7 @@ export const sendMessage = async (req: Request, res: Response) => {
       senderId: firstUserId,
       recipientId: secondUserId,
     } = req.body;
+
     // Get the following user's conversion if it exists or create a new one
     if (!(firstUserId || secondUserId)) {
       return res.status(400).json({
@@ -52,8 +53,6 @@ export const sendMessage = async (req: Request, res: Response) => {
         secondUserId,
       },
     });
-
-    console.log(firstUserId, secondUserId);
 
     const newMessage = await Message.create({
       conversationId: conversation.id,
@@ -144,7 +143,6 @@ export const getMessage = async (req: Request, res: Response) => {
         },
       });
     }
-    console.log(userId, recipientId);
 
     if (!conversation) {
       return res.status(404).json({
@@ -159,6 +157,7 @@ export const getMessage = async (req: Request, res: Response) => {
       conversation,
     });
   } catch (error: any) {
+    console.log(error.message);
     res.status(500).json({
       status: 500,
       message: `Error retriving user's message: try again`,
@@ -167,7 +166,7 @@ export const getMessage = async (req: Request, res: Response) => {
   }
 };
 
-// mark message as delivered
+// mark all messages for the current user as delivered when user comes online
 
 export const markMessageAsDelivered = async (req: Request, res: Response) => {
   try {
@@ -218,7 +217,7 @@ export const markMessageAsDelivered = async (req: Request, res: Response) => {
       ...deliveredMessageIds
     );
 
-    // Send Real-time Message to recipient and sender
+    // Send Real-time Message to both recipient and sender if they are online
 
     const userIds = [userId, ...recipientIds];
 
@@ -245,16 +244,46 @@ export const markMessageAsDelivered = async (req: Request, res: Response) => {
   }
 };
 
-// mark message as read
+// mark message as read when user is online and already in recipient DM (direct message) when the message was sent
 
 export const markMessageAsRead = async (req: Request, res: Response) => {
   try {
     const { id: userId } = req.user as { id: string };
-    const { recipientId } = req.body;
+    const { recipientId } = req.body; // other user message current user is viewing
+
+    // when user is online, and is in the recipient DM, mark message as delivered then read
+
+    // Get mesage still in sent status
+
+    const sentMessages = await Message.findAll({
+      where: {
+        recipientId: userId, // current user is the recipient of the message being marked as delivered
+        senderId: recipientId,
+        status: MessageStatusType.Sent,
+      },
+    });
+
+    if (sentMessages.length === 0) {
+      // no need to throw an error, maybe the message has been marked as delivered already when user came online
+      console.log("No message needs to be marked as delivered");
+    } else {
+      await Message.update(
+        { status: MessageStatusType.Delivered },
+        {
+          where: {
+            recipientId: userId,
+            senderId: recipientId,
+            status: MessageStatusType.Sent,
+          },
+        }
+      );
+    }
+
+    // Get mesage still in delivered status
 
     const messages = await Message.findAll({
       where: {
-        recipientId: userId, // current user is the recipient of the message being marked as delivered
+        recipientId: userId, // current user is the recipient of the message being marked as read
         senderId: recipientId,
         status: MessageStatusType.Delivered,
       },
@@ -289,7 +318,7 @@ export const markMessageAsRead = async (req: Request, res: Response) => {
 
     const combinedReadMessageIds = Object.assign({}, ...readMessageIds); // makes this object compatible with the data parameter of sendNotification Function
 
-    // Send Real-time Message to recipient and sender
+    // Send Real-time Message to both recipient and sender
 
     const userIds = [userId, recipientId];
 

@@ -23,7 +23,6 @@ import messageRoute from "./routes/Message/message";
 import enumRoute from "./routes/enum";
 
 import { swaggerConfig } from "@src/config/swagger_config";
-import { addTestBooking } from "./util/notification-helper-func";
 
 const app = express();
 
@@ -110,8 +109,6 @@ app.use((err: HttpError, req: Request, res: Response, next: any) => {
 });
 
 expressOasGenerator.handleRequests();
-
-addTestBooking();
 
 const port = process.env.PORT || 3000;
 

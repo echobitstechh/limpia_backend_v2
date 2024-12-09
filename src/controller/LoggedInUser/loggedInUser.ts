@@ -20,8 +20,6 @@ export const AddLoggedInUser = async (request: Request, response: Response) => {
       where: { userId, role },
     });
 
-    console.log(loggedInUser);
-
     if (loggedInUser) {
       return response.status(400).json({
         status: 400,
@@ -93,22 +91,9 @@ export const logoutUser = async (req: Request, res: Response) => {
   try {
     const { id: userId, role } = req.user as { id: string; role: string };
 
-    const cleaner = await Cleaner.findOne({
-      where: {
-        userId,
-      },
-    });
-
-    if (!cleaner) {
-      return res.status(404).json({
-        status: 404,
-        message: "User not found",
-      });
-    }
-
     const loggedInUser = await LoggedInUser.findOne({
       where: {
-        userId: cleaner.id,
+        userId,
       },
     });
 
