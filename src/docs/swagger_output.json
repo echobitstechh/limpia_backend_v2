@@ -157,6 +157,22 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Incorrect  password"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "schema": {
@@ -1251,78 +1267,6 @@
         ]
       }
     },
-    "/api/v1/booking/cleaner-bookings": {
-      "get": {
-        "summary": "/api/v1/booking/cleaner-bookings",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Cleaner bookings retrieved successfully."
-                },
-                "bookings": {
-                  "type": "array",
-                  "items": {},
-                  "example": [
-                    null
-                  ]
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Invalid token"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 500
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Error retrieving cleaner bookings."
-                },
-                "error": {
-                  "type": "string",
-                  "example": "Cannot read properties of undefined (reading 'getTableName')"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "booking"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
     "/api/v1/booking/action": {
       "post": {
         "summary": "/api/v1/booking/action",
@@ -1526,6 +1470,78 @@
         ]
       }
     },
+    "/api/v1/booking/cleaner-bookings": {
+      "get": {
+        "summary": "/api/v1/booking/cleaner-bookings",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Cleaner bookings retrieved successfully."
+                },
+                "bookings": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Invalid token"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error retrieving cleaner bookings."
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Cannot read properties of undefined (reading 'getTableName')"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/api/v1/enum/enums": {
       "get": {
         "summary": "/api/v1/enum/enums",
@@ -1558,6 +1574,478 @@
         "tags": [
           "enum"
         ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "summary": "/api/v1/login",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 201
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Logged in user created successfully"
+                },
+                "newLoggedInUser": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "e621e131-ed35-4466-900e-17843eefc7ab"
+                    },
+                    "userId": {
+                      "type": "string",
+                      "example": "8b79a7f2-27d4-4ded-82ab-6faf7065d90b"
+                    },
+                    "username": {
+                      "type": "string",
+                      "example": "Test Cleaner"
+                    },
+                    "role": {
+                      "type": "string",
+                      "example": "Cleaner"
+                    },
+                    "fcmToken": {
+                      "type": "string",
+                      "example": "ctrc3dYj5zujlDD5ESpR5F:APA91bH8fTu4QunawMvv6O4p3UKLCfmrlxrdINwDfcoTk3gg2IEBNZLvW_4IJRXLJfw2PYBFwREC7Nm0ClALbo9oyKKilHzvDqRzUesJPwTFmcK6zO36KIo"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-12-09T11:12:50.638Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-12-09T11:12:50.638Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Please provide userId, fcmToken, username and role"
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "summary": "/api/v1/login",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/login/logout": {
+      "post": {
+        "summary": "/api/v1/login/logout",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Logged out successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not logged in"
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/v1/message/{id}": {
+      "get": {
+        "summary": "/api/v1/message/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Conversation retrieved successfully"
+                },
+                "conversation": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "d7d860ef-dc5a-4b49-b688-eed0713ce339"
+                    },
+                    "firstUserId": {
+                      "type": "string",
+                      "example": "460a3190-9d2f-40b2-8af3-de3a02ea4664"
+                    },
+                    "secondUserId": {
+                      "type": "string",
+                      "example": "14ea9ed6-26fe-4645-bdfd-8831972f794b"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-12-09T12:11:03.995Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-12-09T12:11:03.995Z"
+                    },
+                    "messages": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "conversationId": {
+                            "type": "string"
+                          },
+                          "senderId": {
+                            "type": "string"
+                          },
+                          "recipientId": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "conversationId",
+                          "senderId",
+                          "recipientId",
+                          "message",
+                          "status",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": "d2de421b-f9d4-456d-98f8-4e24994a57b7",
+                          "conversationId": "d7d860ef-dc5a-4b49-b688-eed0713ce339",
+                          "senderId": "460a3190-9d2f-40b2-8af3-de3a02ea4664",
+                          "recipientId": "14ea9ed6-26fe-4645-bdfd-8831972f794b",
+                          "message": "hello",
+                          "status": "sent",
+                          "createdAt": "2024-12-09T12:11:04.058Z",
+                          "updatedAt": "2024-12-09T12:11:04.058Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error retriving user's message: try again"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Something went wrong: Cannot destructure property 'id' of 'req.user' as it is undefined."
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/v1/message": {
+      "post": {
+        "summary": "/api/v1/message",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Message sent successfully!"
+                },
+                "newMessage": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "d2de421b-f9d4-456d-98f8-4e24994a57b7"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "sent"
+                    },
+                    "conversationId": {
+                      "type": "string",
+                      "example": "d7d860ef-dc5a-4b49-b688-eed0713ce339"
+                    },
+                    "senderId": {
+                      "type": "string",
+                      "example": "460a3190-9d2f-40b2-8af3-de3a02ea4664"
+                    },
+                    "recipientId": {
+                      "type": "string",
+                      "example": "14ea9ed6-26fe-4645-bdfd-8831972f794b"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "hello"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-12-09T12:11:04.058Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-12-09T12:11:04.058Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Sender and recipient cannot be the same"
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/v1/message/markDelivered": {
+      "post": {
+        "summary": "/api/v1/message/markDelivered",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/message/markRead": {
+      "post": {
+        "summary": "/api/v1/message/markRead",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Messages marked as read"
+                },
+                "readMessageIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id0": {
+                        "type": "string"
+                      },
+                      "id1": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
+                  },
+                  "example": [
+                    {
+                      "id0": "d2de421b-f9d4-456d-98f8-4e24994a57b7"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "No message found"
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/v1/notification": {
+      "get": {
+        "summary": "/api/v1/notification",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/notification/action": {
+      "post": {
+        "summary": "/api/v1/notification/action",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 201
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Notification sent successfully"
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
         "produces": [
           "application/json"
         ]
