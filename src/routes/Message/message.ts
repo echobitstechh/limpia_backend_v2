@@ -4,7 +4,7 @@ import {
   markMessageAsDelivered,
   markMessageAsRead,
   sendMessage,
-} from "../../controller/Message/message";
+} from "@src/controller/Message/message";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { authenticate } from "@src/middleware/auth";
 

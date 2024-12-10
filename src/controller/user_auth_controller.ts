@@ -6,6 +6,7 @@ import { signToken, signRefreshToken } from "@src/util/token";
 import { GenericStatusConstant, UserRole } from "@src/models/enum/enums";
 import { Address } from "@src/models/Address";
 import { Property } from "@src/models/Property";
+import jwt from "jsonwebtoken";
 
 export const Login = async (req: Request, res: Response) => {
   try {
@@ -206,6 +207,53 @@ export const signUp = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+export const refreshAccessToken = async (req: Request, res: Response) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(400).json({
+        status: 400,
+        message: "Refresh token is required",
+      });
+    }
+
+    // Verify the refresh token
+    jwt.verify(refreshToken, process.env.JWT_SECRET!, async (err, decoded: any) => {
+      if (err) {
+        return res.status(401).json({
+          status: 401,
+          message: "Invalid or expired refresh token",
+        });
+      }
+
+
+      const user = await User.findOne({ where: { id: decoded.id } });
+      if (!user) {
+        return res.status(404).json({
+          status: 404,
+          message: "User not found",
+        });
+      }
+
+      const newAccessToken = signToken(user.id, user.role);
+
+      return res.status(200).json({
+        status: 200,
+        message: "Access token refreshed successfully",
+        token: newAccessToken,
+      });
+    });
+  } catch (error) {
+    console.error("Error refreshing access token:", error);
     return res.status(500).json({
       status: 500,
       message: "Internal server error",
