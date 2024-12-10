@@ -80,28 +80,36 @@
                               "items": {
                                 "type": "string"
                               },
-                              "example": ["TX"]
+                              "example": [
+                                "TX"
+                              ]
                             },
                             "services": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": ["STANDARD_CLEANING"]
+                              "example": [
+                                "STANDARD_CLEANING"
+                              ]
                             },
                             "availability": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": ["WEEKDAYS"]
+                              "example": [
+                                "WEEKDAYS"
+                              ]
                             },
                             "availabilityTime": {
                               "type": "array",
                               "items": {
                                 "type": "string"
                               },
-                              "example": ["MORNING"]
+                              "example": [
+                                "MORNING"
+                              ]
                             },
                             "preferredJobType": {
                               "type": "string",
@@ -193,7 +201,9 @@
             }
           }
         },
-        "tags": ["auth"]
+        "tags": [
+          "auth"
+        ]
       }
     },
     "/api/v1/auth/signup": {
@@ -231,28 +241,36 @@
                           "items": {
                             "type": "string"
                           },
-                          "example": ["TX"]
+                          "example": [
+                            "TX"
+                          ]
                         },
                         "services": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": ["STANDARD_CLEANING"]
+                          "example": [
+                            "STANDARD_CLEANING"
+                          ]
                         },
                         "availability": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": ["WEEKDAYS"]
+                          "example": [
+                            "WEEKDAYS"
+                          ]
                         },
                         "availabilityTime": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "example": ["MORNING"]
+                          "example": [
+                            "MORNING"
+                          ]
                         },
                         "preferredJobType": {
                           "type": "string",
@@ -401,7 +419,9 @@
             }
           }
         },
-        "tags": ["auth"]
+        "tags": [
+          "auth"
+        ]
       }
     },
     "/api/v1/booking/create": {
@@ -469,7 +489,10 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": ["taskName", "completed"]
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
                               },
                               "example": [
                                 {
@@ -490,7 +513,10 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": ["taskName", "completed"]
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
                               },
                               "example": [
                                 {
@@ -511,7 +537,10 @@
                                     "type": "boolean"
                                   }
                                 },
-                                "required": ["taskName", "completed"]
+                                "required": [
+                                  "taskName",
+                                  "completed"
+                                ]
                               },
                               "example": [
                                 {
@@ -622,7 +651,9 @@
             }
           }
         },
-        "tags": ["booking"]
+        "tags": [
+          "booking"
+        ]
       }
     },
     "/api/v1/booking": {
@@ -706,7 +737,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               },
                               "bathroomTasks": {
@@ -721,7 +755,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               },
                               "generalAreasTasks": {
@@ -736,7 +773,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               }
                             }
@@ -980,7 +1020,9 @@
             }
           }
         },
-        "tags": ["booking"]
+        "tags": [
+          "booking"
+        ]
       }
     },
     "/api/v1/booking/nearby": {
@@ -1037,7 +1079,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               },
                               "bathroomTasks": {
@@ -1052,7 +1097,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               },
                               "generalAreasTasks": {
@@ -1067,7 +1115,10 @@
                                       "type": "boolean"
                                     }
                                   },
-                                  "required": ["taskName", "completed"]
+                                  "required": [
+                                    "taskName",
+                                    "completed"
+                                  ]
                                 }
                               }
                             }
@@ -1228,81 +1279,6 @@
                     "message": {
                       "type": "string",
                       "example": "No bookings match your preferences."
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": ["booking"]
-      }
-    },
-    "/api/v1/booking/cleaner-bookings": {
-      "get": {
-        "summary": "/api/v1/booking/cleaner-bookings",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "number",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Cleaner bookings retrieved successfully."
-                    },
-                    "bookings": {
-                      "type": "array",
-                      "items": {},
-                      "example": [
-                        null
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid token"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "number",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error retrieving cleaner bookings."
-                    },
-                    "error": {
-                      "type": "string",
-                      "example": "Cannot read properties of undefined (reading 'getTableName')"
                     }
                   }
                 }
@@ -1519,6 +1495,83 @@
         ]
       }
     },
+    "/api/v1/booking/cleaner-bookings": {
+      "get": {
+        "summary": "/api/v1/booking/cleaner-bookings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Cleaner bookings retrieved successfully."
+                    },
+                    "bookings": {
+                      "type": "array",
+                      "items": {},
+                      "example": [
+                        null
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error retrieving cleaner bookings."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Cannot read properties of undefined (reading 'getTableName')"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "booking"
+        ]
+      }
+    },
     "/api/v1/enum/enums": {
       "get": {
         "summary": "/api/v1/enum/enums",
@@ -1551,6 +1604,472 @@
         "tags": [
           "enum"
         ]
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "summary": "/api/v1/login",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logged in user created successfully"
+                    },
+                    "newLoggedInUser": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "e621e131-ed35-4466-900e-17843eefc7ab"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "8b79a7f2-27d4-4ded-82ab-6faf7065d90b"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "Test Cleaner"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "Cleaner"
+                        },
+                        "fcmToken": {
+                          "type": "string",
+                          "example": "ctrc3dYj5zujlDD5ESpR5F:APA91bH8fTu4QunawMvv6O4p3UKLCfmrlxrdINwDfcoTk3gg2IEBNZLvW_4IJRXLJfw2PYBFwREC7Nm0ClALbo9oyKKilHzvDqRzUesJPwTFmcK6zO36KIo"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-09T11:12:50.638Z"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-09T11:12:50.638Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Please provide userId, fcmToken, username and role"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      },
+      "get": {
+        "summary": "/api/v1/login",
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/login/logout": {
+      "post": {
+        "summary": "/api/v1/login/logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Logged out successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not logged in"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message/{id}": {
+      "get": {
+        "summary": "/api/v1/message/{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Conversation retrieved successfully"
+                    },
+                    "conversation": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "d7d860ef-dc5a-4b49-b688-eed0713ce339"
+                        },
+                        "firstUserId": {
+                          "type": "string",
+                          "example": "460a3190-9d2f-40b2-8af3-de3a02ea4664"
+                        },
+                        "secondUserId": {
+                          "type": "string",
+                          "example": "14ea9ed6-26fe-4645-bdfd-8831972f794b"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-09T12:11:03.995Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-09T12:11:03.995Z"
+                        },
+                        "messages": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "conversationId": {
+                                "type": "string"
+                              },
+                              "senderId": {
+                                "type": "string"
+                              },
+                              "recipientId": {
+                                "type": "string"
+                              },
+                              "message": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "conversationId",
+                              "senderId",
+                              "recipientId",
+                              "message",
+                              "status",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          },
+                          "example": [
+                            {
+                              "id": "d2de421b-f9d4-456d-98f8-4e24994a57b7",
+                              "conversationId": "d7d860ef-dc5a-4b49-b688-eed0713ce339",
+                              "senderId": "460a3190-9d2f-40b2-8af3-de3a02ea4664",
+                              "recipientId": "14ea9ed6-26fe-4645-bdfd-8831972f794b",
+                              "message": "hello",
+                              "status": "sent",
+                              "createdAt": "2024-12-09T12:11:04.058Z",
+                              "updatedAt": "2024-12-09T12:11:04.058Z"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error retriving user's message: try again"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Something went wrong: Cannot destructure property 'id' of 'req.user' as it is undefined."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message": {
+      "post": {
+        "summary": "/api/v1/message",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Message sent successfully!"
+                    },
+                    "newMessage": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "d2de421b-f9d4-456d-98f8-4e24994a57b7"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "sent"
+                        },
+                        "conversationId": {
+                          "type": "string",
+                          "example": "d7d860ef-dc5a-4b49-b688-eed0713ce339"
+                        },
+                        "senderId": {
+                          "type": "string",
+                          "example": "460a3190-9d2f-40b2-8af3-de3a02ea4664"
+                        },
+                        "recipientId": {
+                          "type": "string",
+                          "example": "14ea9ed6-26fe-4645-bdfd-8831972f794b"
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "hello"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-12-09T12:11:04.058Z"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-12-09T12:11:04.058Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Sender and recipient cannot be the same"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/message/markDelivered": {
+      "post": {
+        "summary": "/api/v1/message/markDelivered",
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/message/markRead": {
+      "post": {
+        "summary": "/api/v1/message/markRead",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Messages marked as read"
+                    },
+                    "readMessageIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id0": {
+                            "type": "string"
+                          },
+                          "id1": {
+                            "type": "string"
+                          }
+                        },
+                        "required": []
+                      },
+                      "example": [
+                        {
+                          "id0": "d2de421b-f9d4-456d-98f8-4e24994a57b7"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "No message found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/api/v1/notification": {
+      "get": {
+        "summary": "/api/v1/notification",
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/api/v1/notification/action": {
+      "post": {
+        "summary": "/api/v1/notification/action",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Notification sent successfully"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
       }
     },
     "/": {
