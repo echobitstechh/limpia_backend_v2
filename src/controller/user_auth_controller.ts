@@ -227,7 +227,7 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     }
 
     // Verify the refresh token
-    jwt.verify(refreshToken, process.env.JWT_SECRET!, async (err, decoded: any) => {
+    jwt.verify(refreshToken, process.env.JWT_SECRET!, async (err: any, decoded: any) => {
       if (err) {
         return res.status(401).json({
           status: 401,
