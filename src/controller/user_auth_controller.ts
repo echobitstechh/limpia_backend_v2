@@ -215,49 +215,49 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
+
 export const refreshAccessToken = async (req: Request, res: Response) => {
   try {
-    const { refreshToken } = req.body;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        status: 401,
+        message: "Refresh token is missing or invalid.",
+      });
+    }
+    const refreshToken = authHeader.split(" ")[1];
 
-    if (!refreshToken) {
-      return res.status(400).json({
-        status: 400,
-        message: "Refresh token is required",
+    // Verify the refresh token
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+
+    const { id, role } = decoded as { id: string; role: string };
+
+    // Fetch the user associated with the token
+    const user = await User.findOne({ where: { id, role } });
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User not found.",
       });
     }
 
-    // Verify the refresh token
-    jwt.verify(refreshToken, process.env.JWT_SECRET!, async (err: any, decoded: any) => {
-      if (err) {
-        return res.status(401).json({
-          status: 401,
-          message: "Invalid or expired refresh token",
-        });
-      }
 
+    const newAccessToken = signToken(user.id, user.role);
+    const newRefreshToken = signRefreshToken(user.id, user.role);
 
-      const user = await User.findOne({ where: { id: decoded.id } });
-      if (!user) {
-        return res.status(404).json({
-          status: 404,
-          message: "User not found",
-        });
-      }
-
-      const newAccessToken = signToken(user.id, user.role);
-
-      return res.status(200).json({
-        status: 200,
-        message: "Access token refreshed successfully",
-        token: newAccessToken,
-      });
+    return res.status(200).json({
+      status: 200,
+      message: "Access token refreshed successfully.",
+      token: newAccessToken,
+      refresh_token: newRefreshToken
     });
   } catch (error) {
     console.error("Error refreshing access token:", error);
     return res.status(500).json({
       status: 500,
-      message: "Internal server error",
+      message: "Internal server error.",
       error: error.message,
     });
   }
 };
+
