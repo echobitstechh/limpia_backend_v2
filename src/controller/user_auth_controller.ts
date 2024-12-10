@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { Cleaner } from "@src/models/Cleaner";
 import { User } from "@src/models/User";
-import { signToken, signRefreshToken } from "@src/util/token";
+import {signToken, signRefreshToken, verifyToken} from "@src/util/token";
 import { GenericStatusConstant, UserRole } from "@src/models/enum/enums";
 import { Address } from "@src/models/Address";
 import { Property } from "@src/models/Property";
@@ -228,7 +228,7 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     const refreshToken = authHeader.split(" ")[1];
 
     // Verify the refresh token
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+    const decoded = verifyToken(refreshToken);
 
     const { id, role } = decoded as { id: string; role: string };
 
