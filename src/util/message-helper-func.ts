@@ -12,8 +12,6 @@ export const sendMessageFCM = async (data: { [key: string]: string }) => {
       return;
     }
 
-    console.log(fcmToken);
-
     await sendNotification(
       fcmToken,
       "New Message",

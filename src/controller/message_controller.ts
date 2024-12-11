@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Conversation } from "../../models/Message/conversation";
-import { Message, MessageStatusType } from "../../models/Message/message";
+import { Conversation } from "../models/Message/Conversation";
+import { Message, MessageStatusType } from "../models/Message/Message";
 import { Op } from "sequelize";
 import { sendMessageFCM } from "@src/util/message-helper-func";
 import { GetLoggedInUsersFcmToken } from "@src/util/loggedinuser-helper-func";
@@ -344,35 +344,3 @@ export const markMessageAsRead = async (req: Request, res: Response) => {
     });
   }
 };
-
-// export const getAllMessage = async (req: Request, res: Response) => {
-//   try {
-//     // get the conversion the user is associated with current user and recipient
-
-//     const conversation = await Conversation.findAll({
-//       include: {
-//         model: Message,
-//         as: "messages",
-//       },
-//     });
-
-//     if (!conversation) {
-//       res.status(404).json({
-//         status: 404,
-//         message: "Conversation does not exist",
-//       });
-//     }
-
-//     res.status(200).json({
-//       status: 200,
-//       message: "Conversation retrieved successfully",
-//       conversation,
-//     });
-//   } catch (error: any) {
-//     res.status(500).json({
-//       status: 500,
-//       message: `Error retriving user's message: try again`,
-//       error: `Something went wrong: ${error.message}`,
-//     });
-//   }
-// };

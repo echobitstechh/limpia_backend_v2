@@ -1,15 +1,17 @@
 // Get all logged in user fcmToken
 
 import { Op } from "sequelize";
-import { LoggedInUser } from "../models/LoggedInUser/loggedInUser";
-
+import { User } from "@src/models/User";
 export const GetLoggedInCleanersFcmToken = async () => {
   try {
-    const loggedInUsers = await LoggedInUser.findAll({
+    const loggedInUsers = await User.findAll({
       where: {
         role: "Cleaner",
+        fcmToken: {
+          [Op.ne]: "",
+        },
       },
-      attributes: ["fcmToken", "userId"],
+      attributes: ["fcmToken"],
     });
 
     if (!loggedInUsers || loggedInUsers.length === 0) {
@@ -17,7 +19,9 @@ export const GetLoggedInCleanersFcmToken = async () => {
       return [];
     }
 
-    const fcmTokens = loggedInUsers.map((user) => user.fcmToken);
+    const fcmTokens = loggedInUsers
+      .map((user) => user.fcmToken)
+      .filter((token) => token !== undefined);
 
     return fcmTokens;
   } catch (error) {
@@ -30,9 +34,9 @@ export const GetLoggedInCleanersFcmToken = async () => {
 
 export const GetLoggedInUsersFcmToken = async (userIds: string[]) => {
   try {
-    const loggedInUsers = await LoggedInUser.findAll({
+    const loggedInUsers = await User.findAll({
       where: {
-        userId: {
+        id: {
           [Op.in]: userIds,
         },
       },
@@ -44,7 +48,9 @@ export const GetLoggedInUsersFcmToken = async (userIds: string[]) => {
       return [];
     }
 
-    const fcmTokens = loggedInUsers.map((user) => user.fcmToken);
+    const fcmTokens = loggedInUsers
+      .map((user) => user.fcmToken)
+      .filter((token) => token !== undefined);
 
     return fcmTokens;
   } catch (error: any) {
