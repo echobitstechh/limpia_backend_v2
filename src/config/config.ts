@@ -7,13 +7,12 @@ import { initUser, User } from "@src/models/User";
 import { Address, initAddress } from "@src/models/Address";
 import { initProperty, Property } from "@src/models/Property";
 import { Booking, initBooking } from "@src/models/Booking";
-import { initNotification } from "@src/models/Notification/notification";
-import { initLoggedInUser } from "@src/models/LoggedInUser/loggedInUser";
+import { initNotification } from "@src/models/Notification";
 import {
   Conversation,
   initConversation,
-} from "@src/models/Message/conversation";
-import { initMessage, Message } from "@src/models/Message/message";
+} from "@src/models/Message/Conversation";
+import { initMessage, Message } from "@src/models/Message/Message";
 
 const database = process.env.DB_NAME || "";
 const username = process.env.DB_USER || "";
@@ -139,7 +138,6 @@ async function initialize() {
   initBooking(sequelize);
 
   initNotification(sequelize); // Initialize the Notification model
-  initLoggedInUser(sequelize); // Initialize the LoggedInUser model
   initConversation(sequelize); // Initialize the Conversation model
   initMessage(sequelize); // Initialize the Message model
 

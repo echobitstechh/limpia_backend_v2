@@ -11,6 +11,7 @@ interface UserAttributes {
   role: UserRole;
   status: GenericStatusConstant;
   addressId: string;
+  fcmToken?: string;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
@@ -24,6 +25,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
   public role!: UserRole;
   public status!: GenericStatusConstant;
   public addressId!: string;
+  public fcmToken?: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -75,6 +77,10 @@ const initUser = (sequelize: Sequelize) => {
           key: "id",
         },
         onDelete: "CASCADE",
+      },
+      fcmToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {

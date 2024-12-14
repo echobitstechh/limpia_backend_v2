@@ -1,7 +1,7 @@
 // Define the Notification model and its attributes
 
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
-import { UserRole } from "../enum/enums";
+import { UserRole } from "./enum/enums";
 
 // Define enum for Notification type
 
