@@ -7,7 +7,8 @@
 import cloudinary from '@src/config/cloudinary';
 
 
-export const processAndUploadImages = async (images: string[], currentImages: string[]): Promise<string[]> => {
+export const processAndUploadImages = async (images: string[], currentImages: string[], folderName: string): Promise<string[]> => {
+
     if (!Array.isArray(images) || images.length === 0) {
         return currentImages;
     }
@@ -39,26 +40,28 @@ export const processAndUploadImages = async (images: string[], currentImages: st
             }
 
             const prefixedBase64Image = base64Prefix + base64Image;
-            return await uploadPropertyToCloudinary(prefixedBase64Image, 'properties');
+            return await uploadImageToCloudinary(prefixedBase64Image, folderName);
         } catch (error) {
             console.error('Error uploading image:', error);
             return Promise.reject('Failed to upload one or more images');
         }
     });
 
-    const uploadedImages = await Promise.all(uploadPromises);
-    return uploadedImages;
+    return await Promise.all(uploadPromises);
 };
 
 
-export async function uploadPropertyToCloudinary(base64Image: string, folderName: string) {
+export async function uploadImageToCloudinary(base64Image: string, folderName: string) {
     try {
+        console.log("Uploading to Cloudinary: ", { folderName, base64Image: base64Image.slice(0, 30) }); // Log part of the base64
         const result = await cloudinary.uploader.upload(base64Image, {
             folder: folderName,
         });
+        console.log("Cloudinary Upload Result:", result);
         return result.secure_url;
     } catch (error) {
-        console.error('Error uploading to Cloudinary:', error);
+        console.error("Error uploading to Cloudinary:", error);
         throw error;
     }
 }
+

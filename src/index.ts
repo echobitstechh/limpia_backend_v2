@@ -85,7 +85,7 @@ app.use("/api/v1/message", messageRoute);
 app.use("/api/v1/notification", notificationRoute);
 
 app.get("/", (req: Request, res: Response, next) => {
-  res.send("Limpia Backend V2 Home!");
+  res.send("Limpia Backend V2 Home! navigate to /api/v1/api-docs to see docs");
   next();
 });
 

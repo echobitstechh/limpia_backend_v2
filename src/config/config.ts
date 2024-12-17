@@ -12,7 +12,8 @@ import {
   Conversation,
   initConversation,
 } from "@src/models/Message/Conversation";
-import { initMessage, Message } from "@src/models/Message/Message";
+import {CleaningType, initializeCleaningTypeModel} from "@src/models/CleaningType";
+import {initMessage, Message} from "@src/models/Message/Message";
 
 const database = process.env.DB_NAME || "";
 const username = process.env.DB_USER || "";
@@ -98,9 +99,24 @@ function defineAssociations() {
     foreignKey: "conversationId",
     as: "messages",
   });
+
   Message.belongsTo(Conversation, {
     foreignKey: "conversationId",
     as: "conversation",
+  });
+
+  Booking.belongsToMany(CleaningType, {
+    through: "BookingCleaningTypes",
+    as: "cleaningTypes",
+    foreignKey: "bookingId",
+    otherKey: "cleaningTypeId",
+  });
+
+  CleaningType.belongsToMany(Booking, {
+    through: "BookingCleaningTypes",
+    as: "bookings",
+    foreignKey: "cleaningTypeId",
+    otherKey: "bookingId",
   });
 
   console.log("All associations defined successfully");
@@ -136,6 +152,8 @@ async function initialize() {
   initCleaner(sequelize);
   initProperty(sequelize);
   initBooking(sequelize);
+  initializeCleaningTypeModel(sequelize);
+
 
   initNotification(sequelize); // Initialize the Notification model
   initConversation(sequelize); // Initialize the Conversation model

@@ -21,6 +21,8 @@ import {
   handleNewBookingNotification,
   sendNotificationThroughTopic,
 } from "@src/util/notification-helper-func";
+import {CleaningType} from "@src/models/CleaningType";
+import {processAndUploadImages} from "@src/util/processanduploadimages";
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
@@ -30,7 +32,7 @@ export const createBooking = async (req: Request, res: Response) => {
 
     const {
       propertyId,
-      cleaningType,
+      cleaningTypes,
       cleaningTime,
       numberOfRooms,
       numberOfBathrooms,
@@ -39,12 +41,13 @@ export const createBooking = async (req: Request, res: Response) => {
       type, // For HomeOwner: e.g., apartment, house
     } = req.body;
 
-    if (!cleaningType || !cleaningTime) {
+    if (!cleaningTypes || cleaningTypes.length === 0 || !cleaningTime) {
       return res.status(400).json({
         status: 400,
-        message: "Cleaning type and time are required.",
+        message: "Cleaning type and cleaning time are required.",
       });
     }
+
 
     let finalPropertyId = propertyId;
 
@@ -86,7 +89,6 @@ export const createBooking = async (req: Request, res: Response) => {
 
     const newBooking = await Booking.create({
       propertyId: finalPropertyId,
-      cleaningType: cleaningType as CleaningTypeConstant,
       cleaningTime,
       propertyType: type,
       numberOfRooms,
@@ -97,6 +99,19 @@ export const createBooking = async (req: Request, res: Response) => {
       status: GenericStatusConstant.Active,
     });
 
+    // Add cleaning types to the booking
+    const cleaningTypeInstances = await CleaningType.findAll({
+      where: { id: cleaningTypes },
+    });
+
+    if (cleaningTypeInstances.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        message: "No valid cleaning types found for the provided IDs.",
+      });
+    }
+
+    await newBooking.addCleaningTypes(cleaningTypeInstances);
     // Send notification to all cleaners on successful booking creation
 
     await handleNewBookingNotification(newBooking, userId);
@@ -626,3 +641,61 @@ export const actionBooking = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getCleaningTypes = async (req: Request, res: Response) => {
+  try {
+    const cleaningTypes = await CleaningType.findAll();
+    return res.status(200).json({
+      status: 200,
+      message: "Cleaning types retrieved successfully.",
+      data: cleaningTypes,
+    });
+  } catch (error) {
+    console.error("Error fetching cleaning types:", error);
+    return res.status(500).json({
+      status: 500,
+      message: "Error fetching cleaning types.",
+      error: error.message,
+    });
+  }
+};
+
+export const createCleaningType = async (req: Request, res: Response) => {
+  try {
+    const { name, image, description } = req.body;
+
+    if (!name) {
+      return res.status(400).json({
+        status: 400,
+        message: "Name is required to create a cleaning type.",
+      });
+    }
+    if (!image) {
+      return res.status(400).json({
+        status: 400,
+        message: "Image is required to create a cleaning type.",
+      });
+    }
+
+    const uploadedImage = await processAndUploadImages([image] , [], 'cleaning_types');
+
+
+
+     const cleaningType = await CleaningType.create({ name, images: uploadedImage, description });
+
+    return res.status(201).json({
+      status: 201,
+      message: "Cleaning type created successfully.",
+       data: cleaningType,
+    });
+  } catch (error) {
+    console.error("Error creating cleaning type:", error);
+    return res.status(500).json({
+      status: 500,
+      message: "Error creating cleaning type.",
+      error: error.message,
+    });
+  }
+};
+
+
