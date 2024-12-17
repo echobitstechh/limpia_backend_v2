@@ -8,6 +8,7 @@ import {
 import {DataTypes, Model, Optional, Sequelize} from "sequelize";
 import {Property} from "@src/models/Property";
 import {Cleaner} from "@src/models/Cleaner";
+import {CleaningType} from "@src/models/CleaningType";
 
 
 
@@ -66,7 +67,10 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> {
     public bookingStatus?: BookingStatusConstant;
 
     public property?: Property;
+    public cleaner?: Cleaner[];
+    public cleaningTypes?: CleaningType[];
     public addCleaner!: (cleaner: Cleaner) => Promise<void>;
+    public addCleaningTypes!: (cleaningType: CleaningType[]) => Promise<void>;
 
 }
 

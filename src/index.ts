@@ -17,9 +17,8 @@ import * as fs from "fs";
 
 import userRoute from "./routes/user";
 import bookingRoute from "./routes/booking";
-import loginRoute from "./routes/LoggedInUser/loggedInUser";
-import notificationRoute from "./routes/Notification/notification";
-import messageRoute from "./routes/Message/message";
+import notificationRoute from "./routes/notification";
+import messageRoute from "./routes/message";
 import enumRoute from "./routes/enum";
 
 import { swaggerConfig } from "@src/config/swagger_config";
@@ -82,12 +81,11 @@ app.use("/api/v1/booking", bookingRoute);
 app.use("/api/v1/enum", enumRoute);
 
 // Notification / Messaging routes
-app.use("/api/v1/login", loginRoute);
 app.use("/api/v1/message", messageRoute);
 app.use("/api/v1/notification", notificationRoute);
 
 app.get("/", (req: Request, res: Response, next) => {
-  res.send("Limpia Backend V2 Home!");
+  res.send("Limpia Backend V2 Home! navigate to /api/v1/api-docs to see docs");
   next();
 });
 

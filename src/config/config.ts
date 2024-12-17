@@ -7,13 +7,13 @@ import { initUser, User } from "@src/models/User";
 import { Address, initAddress } from "@src/models/Address";
 import { initProperty, Property } from "@src/models/Property";
 import { Booking, initBooking } from "@src/models/Booking";
-import { initNotification } from "@src/models/Notification/notification";
-import { initLoggedInUser } from "@src/models/LoggedInUser/loggedInUser";
+import { initNotification } from "@src/models/Notification";
 import {
   Conversation,
   initConversation,
-} from "@src/models/Message/conversation";
-import { initMessage, Message } from "@src/models/Message/message";
+} from "@src/models/Message/Conversation";
+import {CleaningType, initializeCleaningTypeModel} from "@src/models/CleaningType";
+import {initMessage, Message} from "@src/models/Message/Message";
 
 const database = process.env.DB_NAME || "";
 const username = process.env.DB_USER || "";
@@ -99,9 +99,24 @@ function defineAssociations() {
     foreignKey: "conversationId",
     as: "messages",
   });
+
   Message.belongsTo(Conversation, {
     foreignKey: "conversationId",
     as: "conversation",
+  });
+
+  Booking.belongsToMany(CleaningType, {
+    through: "BookingCleaningTypes",
+    as: "cleaningTypes",
+    foreignKey: "bookingId",
+    otherKey: "cleaningTypeId",
+  });
+
+  CleaningType.belongsToMany(Booking, {
+    through: "BookingCleaningTypes",
+    as: "bookings",
+    foreignKey: "cleaningTypeId",
+    otherKey: "bookingId",
   });
 
   console.log("All associations defined successfully");
@@ -137,9 +152,10 @@ async function initialize() {
   initCleaner(sequelize);
   initProperty(sequelize);
   initBooking(sequelize);
+  initializeCleaningTypeModel(sequelize);
+
 
   initNotification(sequelize); // Initialize the Notification model
-  initLoggedInUser(sequelize); // Initialize the LoggedInUser model
   initConversation(sequelize); // Initialize the Conversation model
   initMessage(sequelize); // Initialize the Message model
 
